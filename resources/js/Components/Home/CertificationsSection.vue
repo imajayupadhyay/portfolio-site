@@ -39,12 +39,14 @@
                         <div class="absolute -inset-1 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-3xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
 
                         <div class="relative z-10">
-                            <!-- Badge Icon -->
+                            <!-- Badge Image -->
                             <div class="mb-6">
-                                <div class="w-20 h-20 mx-auto bg-gradient-to-br from-orange-500 to-yellow-500 rounded-2xl flex items-center justify-center shadow-lg transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
-                                    <svg class="w-12 h-12 text-white" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 00.186-.186V3.574a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m0 2.716h2.118a.187.187 0 00.186-.186V6.29a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.887c0 .102.082.186.185.186m-2.93 0h2.12a.186.186 0 00.184-.186V6.29a.185.185 0 00-.185-.185H8.1a.185.185 0 00-.185.185v1.887c0 .102.083.186.185.186m-2.964 0h2.119a.186.186 0 00.185-.186V6.29a.185.185 0 00-.185-.185H5.136a.186.186 0 00-.186.185v1.887c0 .102.084.186.186.186m5.893 2.715h2.118a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.083.185.185.185m-2.964 0h2.119a.185.185 0 00.185-.185V9.006a.185.185 0 00-.184-.186h-2.12a.186.186 0 00-.186.186v1.887c0 .102.084.185.186.185m-2.92 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.082.185.185.185M23.763 9.89c-.065-.051-.672-.51-1.954-.51-.338 0-.676.03-1.01.09-.808-1.197-1.695-2.314-2.654-3.348-.238-.257-.513-.48-.802-.666l-.547-.35-.354.55a4.56 4.56 0 00-.624 1.738 3.42 3.42 0 00.44 2.15c-.628.37-1.296.66-1.996.87-.65.186-1.312.28-1.975.28H.026l-.013.143a9.512 9.512 0 00.093 1.753c.198 1.607.765 3.06 1.684 4.318.897 1.23 2.074 2.196 3.494 2.87 1.396.664 2.976 1.003 4.697 1.003 1.06 0 2.115-.136 3.137-.407 1.668-.441 3.199-1.215 4.55-2.3 1.29-1.037 2.383-2.323 3.248-3.82.724-1.252 1.24-2.605 1.535-4.023.168-.01.336-.017.504-.017 1.527 0 2.478.483 2.734.73.187.178.324.394.405.636l.283-.038.039-.276c.054-.385.097-.771.127-1.158a9.44 9.44 0 00.04-1.014l-.013-.025-.045-.01z"/>
-                                    </svg>
+                                <div class="w-48 h-48 mx-auto flex items-center justify-center p-4 transform group-hover:scale-105 transition-all duration-500">
+                                    <img
+                                        src="/images/badges/aws-certified-developer-associate copy.png"
+                                        alt="AWS Certified Developer Associate"
+                                        class="w-full h-full object-contain drop-shadow-xl"
+                                    />
                                 </div>
                             </div>
 
@@ -70,7 +72,9 @@
 
                             <!-- Verify Button -->
                             <a
-                                href="#"
+                                href="https://www.credly.com/badges/1a1c6387-8fc8-4879-b2f4-96c4bb00a548/public_url"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 class="flex items-center justify-center w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
                             >
                                 <ShieldCheckIcon class="w-5 h-5 mr-2" />
@@ -93,25 +97,27 @@
                         <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-3xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
 
                         <div class="relative z-10">
-                            <!-- Badge Icon -->
+                            <!-- Badge Image -->
                             <div class="mb-6">
-                                <div class="w-20 h-20 mx-auto bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
-                                    <svg class="w-12 h-12 text-white" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M6.315 10.3l3.133 12.048L1.24 20.39l12.251-1.669zm14.944-4.156L14.206 2 8.297 13.903l4.922 1.841 6.606-7.226z"/>
-                                    </svg>
+                                <div class="w-48 h-48 mx-auto flex items-center justify-center p-4 transform group-hover:scale-105 transition-all duration-500">
+                                    <img
+                                        src="/images/badges/microsoft-certified-associate-badge.svg"
+                                        alt="Microsoft Certified Associate"
+                                        class="w-full h-full object-contain drop-shadow-xl"
+                                    />
                                 </div>
                             </div>
 
                             <!-- Certification Info -->
                             <div class="text-center mb-6">
                                 <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                                    Azure Administrator
+                                    Microsoft Certified
                                 </h3>
                                 <p class="text-sm text-gray-600 dark:text-gray-400 mb-1">
                                     Associate Level
                                 </p>
                                 <p class="text-xs text-gray-500 dark:text-gray-500 font-mono">
-                                    AZ-104
+                                    Azure Associate
                                 </p>
                             </div>
 
@@ -124,7 +130,9 @@
 
                             <!-- Verify Button -->
                             <a
-                                href="#"
+                                href="https://learn.microsoft.com/en-us/users/AjayUpadhyay-007/credentials/37149BE839FE215A"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 class="flex items-center justify-center w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
                             >
                                 <ShieldCheckIcon class="w-5 h-5 mr-2" />
@@ -147,25 +155,27 @@
                         <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-3xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
 
                         <div class="relative z-10">
-                            <!-- Badge Icon -->
+                            <!-- Badge Image -->
                             <div class="mb-6">
-                                <div class="w-20 h-20 mx-auto bg-gradient-to-br from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center shadow-lg transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
-                                    <svg class="w-12 h-12 text-white" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M6.315 10.3l3.133 12.048L1.24 20.39l12.251-1.669zm14.944-4.156L14.206 2 8.297 13.903l4.922 1.841 6.606-7.226z"/>
-                                    </svg>
+                                <div class="w-48 h-48 mx-auto flex items-center justify-center p-4 transform group-hover:scale-105 transition-all duration-500">
+                                    <img
+                                        src="/images/badges/microsoft-certified-fundamentals-badge.svg"
+                                        alt="Microsoft Certified Fundamentals"
+                                        class="w-full h-full object-contain drop-shadow-xl"
+                                    />
                                 </div>
                             </div>
 
                             <!-- Certification Info -->
                             <div class="text-center mb-6">
                                 <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                                    Azure Fundamentals
+                                    Microsoft Certified
                                 </h3>
                                 <p class="text-sm text-gray-600 dark:text-gray-400 mb-1">
-                                    Foundational Level
+                                    Fundamentals Level
                                 </p>
                                 <p class="text-xs text-gray-500 dark:text-gray-500 font-mono">
-                                    AZ-900
+                                    Azure Fundamentals
                                 </p>
                             </div>
 
@@ -178,7 +188,9 @@
 
                             <!-- Verify Button -->
                             <a
-                                href="#"
+                                href="https://learn.microsoft.com/en-us/users/ajayupadhyay-007/credentials/74d000841b2147a6"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 class="flex items-center justify-center w-full px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
                             >
                                 <ShieldCheckIcon class="w-5 h-5 mr-2" />
