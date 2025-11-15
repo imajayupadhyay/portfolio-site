@@ -307,7 +307,7 @@ const props = defineProps({
 const navItems = [
     { name: 'Home', href: '/', icon: HomeIcon },
     { name: 'Skills', href: '#skills', icon: CodeBracketIcon },
-    { name: 'Projects', href: '#projects', icon: BriefcaseIcon },
+    { name: 'Projects', href: '/projects', icon: BriefcaseIcon },
     { name: 'Contact', href: '/contact', icon: EnvelopeIcon },
 ];
 

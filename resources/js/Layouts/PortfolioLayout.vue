@@ -24,12 +24,19 @@
 
         <!-- Footer -->
         <Footer />
+
+        <!-- Floating WhatsApp Button -->
+        <FloatingWhatsApp
+            phone-number="9717969678"
+            message="Hello Ajay! I'd like to connect with you."
+        />
     </div>
 </template>
 
 <script setup>
 import Header from '../Components/Header.vue';
 import Footer from '../Components/Footer.vue';
+import FloatingWhatsApp from '../Components/FloatingWhatsApp.vue';
 
 // Props
 const props = defineProps({
