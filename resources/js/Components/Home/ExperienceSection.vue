@@ -24,167 +24,141 @@
                 </p>
             </div>
 
-            <!-- Timeline -->
-            <div class="relative">
-                <!-- Timeline Line -->
-                <div class="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-blue-600 via-purple-600 to-pink-600 opacity-20"></div>
+            <!-- Experience Container Cards -->
+            <div class="max-w-4xl mx-auto space-y-6">
+                <!-- Jellyfish Technologies -->
+                <div
+                    class="group bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative overflow-hidden animate-fade-in-up"
+                    style="animation-delay: 0.3s"
+                >
+                    <!-- Gradient Overlay on Hover -->
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-                <!-- Experience Items -->
-                <div class="space-y-12">
-                    <!-- Jellyfish Technologies -->
-                    <div
-                        class="relative grid grid-cols-1 lg:grid-cols-2 gap-8 items-center animate-fade-in-up"
-                        style="animation-delay: 0.3s"
-                    >
-                        <!-- Left: Company Info (Desktop) / Full Width (Mobile) -->
-                        <div class="lg:text-right">
-                            <div class="group inline-block lg:block">
-                                <div class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl rounded-3xl p-8 border border-gray-200/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 relative overflow-hidden">
-                                    <!-- Gradient Overlay on Hover -->
-                                    <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                                    <!-- Glow Effect -->
-                                    <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-3xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
-
-                                    <div class="relative z-10">
-                                        <!-- Company Logo/Icon -->
-                                        <div class="flex justify-center lg:justify-end mb-4">
-                                            <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
-                                                <CloudIcon class="w-9 h-9 text-white" />
-                                            </div>
-                                        </div>
-
-                                        <!-- Company Name -->
-                                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                                            Cloud Engineer
-                                        </h3>
-                                        <p class="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-2">
-                                            Jellyfish Technologies
-                                        </p>
-                                        <div class="flex items-center justify-center lg:justify-end text-sm text-gray-600 dark:text-gray-400 mb-4">
-                                            <MapPinIcon class="w-4 h-4 mr-1" />
-                                            Noida
-                                            <span class="mx-2">•</span>
-                                            <CalendarIcon class="w-4 h-4 mr-1" />
-                                            Jul 2024 - Present
-                                        </div>
-
-                                        <!-- Current Badge -->
-                                        <div class="flex justify-center lg:justify-end mb-4">
-                                            <span class="inline-flex items-center px-3 py-1 rounded-full bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20 text-xs font-medium text-green-600 dark:text-green-400">
-                                                <span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
-                                                Current Position
-                                            </span>
-                                        </div>
-
-                                        <!-- Achievements -->
-                                        <div class="space-y-2 text-sm text-gray-600 dark:text-gray-400 text-left">
-                                            <div class="flex items-start">
-                                                <CheckCircleIcon class="w-5 h-5 mr-2 text-blue-600 flex-shrink-0 mt-0.5" />
-                                                <span>Orchestrated multi-cloud infrastructure across Azure, AWS, and DigitalOcean with 99.9% uptime</span>
-                                            </div>
-                                            <div class="flex items-start">
-                                                <CheckCircleIcon class="w-5 h-5 mr-2 text-blue-600 flex-shrink-0 mt-0.5" />
-                                                <span>Architected CI/CD pipelines using GitHub Actions, Jenkins, and Azure DevOps</span>
-                                            </div>
-                                            <div class="flex items-start">
-                                                <CheckCircleIcon class="w-5 h-5 mr-2 text-blue-600 flex-shrink-0 mt-0.5" />
-                                                <span>Optimized cloud storage costs by 30% through strategic management</span>
-                                            </div>
-                                            <div class="flex items-start">
-                                                <CheckCircleIcon class="w-5 h-5 mr-2 text-blue-600 flex-shrink-0 mt-0.5" />
-                                                <span>Implemented comprehensive monitoring with Azure Monitor and CloudWatch</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="relative z-10 flex gap-6">
+                        <!-- Icon -->
+                        <div class="flex-shrink-0">
+                            <div class="w-14 h-14 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-md transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                                <CloudIcon class="w-7 h-7 text-white" />
                             </div>
                         </div>
 
-                        <!-- Timeline Dot -->
-                        <div class="hidden lg:block absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-1/2">
-                            <div class="w-6 h-6 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full border-4 border-white dark:border-gray-900 shadow-lg animate-pulse"></div>
-                        </div>
+                        <!-- Content -->
+                        <div class="flex-1 min-w-0">
+                            <!-- Header -->
+                            <div class="flex flex-wrap items-start justify-between gap-3 mb-3">
+                                <div>
+                                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                                        Cloud Engineer
+                                    </h3>
+                                    <p class="text-base font-semibold text-blue-600 dark:text-blue-400">
+                                        Jellyfish Technologies
+                                    </p>
+                                </div>
+                                <span class="inline-flex items-center px-3 py-1 rounded-full bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20 text-xs font-medium text-green-600 dark:text-green-400">
+                                    <span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
+                                    Current
+                                </span>
+                            </div>
 
-                        <!-- Right: Empty Space for Timeline Balance -->
-                        <div class="hidden lg:block"></div>
+                            <!-- Meta Info -->
+                            <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-gray-600 dark:text-gray-400 mb-4">
+                                <div class="flex items-center">
+                                    <MapPinIcon class="w-4 h-4 mr-1" />
+                                    Noida
+                                </div>
+                                <div class="flex items-center">
+                                    <CalendarIcon class="w-4 h-4 mr-1" />
+                                    Jul 2024 - Present
+                                </div>
+                            </div>
+
+                            <!-- Achievements -->
+                            <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                                <li class="flex items-start">
+                                    <CheckCircleIcon class="w-4 h-4 mr-2 text-blue-600 flex-shrink-0 mt-0.5" />
+                                    <span>Orchestrated multi-cloud infrastructure across Azure, AWS, and DigitalOcean with 99.9% uptime</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <CheckCircleIcon class="w-4 h-4 mr-2 text-blue-600 flex-shrink-0 mt-0.5" />
+                                    <span>Architected CI/CD pipelines using GitHub Actions, Jenkins, and Azure DevOps</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <CheckCircleIcon class="w-4 h-4 mr-2 text-blue-600 flex-shrink-0 mt-0.5" />
+                                    <span>Optimized cloud storage costs by 30% through strategic management</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <CheckCircleIcon class="w-4 h-4 mr-2 text-blue-600 flex-shrink-0 mt-0.5" />
+                                    <span>Implemented comprehensive monitoring with Azure Monitor and CloudWatch</span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
+                </div>
 
-                    <!-- 99Notes EdTech -->
-                    <div
-                        class="relative grid grid-cols-1 lg:grid-cols-2 gap-8 items-center animate-fade-in-up"
-                        style="animation-delay: 0.4s"
-                    >
-                        <!-- Left: Empty Space for Timeline Balance -->
-                        <div class="hidden lg:block"></div>
+                <!-- 99Notes EdTech -->
+                <div
+                    class="group bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative overflow-hidden animate-fade-in-up"
+                    style="animation-delay: 0.4s"
+                >
+                    <!-- Gradient Overlay on Hover -->
+                    <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-                        <!-- Timeline Dot -->
-                        <div class="hidden lg:block absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-1/2">
-                            <div class="w-6 h-6 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full border-4 border-white dark:border-gray-900 shadow-lg"></div>
+                    <div class="relative z-10 flex gap-6">
+                        <!-- Icon -->
+                        <div class="flex-shrink-0">
+                            <div class="w-14 h-14 bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center shadow-md transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                                <CodeBracketIcon class="w-7 h-7 text-white" />
+                            </div>
                         </div>
 
-                        <!-- Right: Company Info (Desktop) / Full Width (Mobile) -->
-                        <div class="lg:text-left">
-                            <div class="group inline-block lg:block">
-                                <div class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl rounded-3xl p-8 border border-gray-200/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 relative overflow-hidden">
-                                    <!-- Gradient Overlay on Hover -->
-                                    <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <!-- Content -->
+                        <div class="flex-1 min-w-0">
+                            <!-- Header -->
+                            <div class="flex flex-wrap items-start justify-between gap-3 mb-3">
+                                <div>
+                                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                                        Full Stack Developer
+                                    </h3>
+                                    <p class="text-base font-semibold text-purple-600 dark:text-purple-400">
+                                        99Notes EdTech Pvt. Ltd.
+                                    </p>
+                                </div>
+                                <span class="inline-flex items-center px-3 py-1 rounded-full bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 text-xs font-medium text-purple-600 dark:text-purple-400">
+                                    1 year 8 months
+                                </span>
+                            </div>
 
-                                    <!-- Glow Effect -->
-                                    <div class="absolute -inset-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
-
-                                    <div class="relative z-10">
-                                        <!-- Company Logo/Icon -->
-                                        <div class="flex justify-center lg:justify-start mb-4">
-                                            <div class="w-16 h-16 bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl flex items-center justify-center shadow-lg transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
-                                                <CodeBracketIcon class="w-9 h-9 text-white" />
-                                            </div>
-                                        </div>
-
-                                        <!-- Company Name -->
-                                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                                            Full Stack Developer
-                                        </h3>
-                                        <p class="text-lg font-semibold text-purple-600 dark:text-purple-400 mb-2">
-                                            99Notes EdTech Pvt. Ltd.
-                                        </p>
-                                        <div class="flex items-center justify-center lg:justify-start text-sm text-gray-600 dark:text-gray-400 mb-4">
-                                            <MapPinIcon class="w-4 h-4 mr-1" />
-                                            Delhi
-                                            <span class="mx-2">•</span>
-                                            <CalendarIcon class="w-4 h-4 mr-1" />
-                                            Dec 2022 - Jul 2024
-                                        </div>
-
-                                        <!-- Duration Badge -->
-                                        <div class="flex justify-center lg:justify-start mb-4">
-                                            <span class="inline-flex items-center px-3 py-1 rounded-full bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 text-xs font-medium text-purple-600 dark:text-purple-400">
-                                                1 year 8 months
-                                            </span>
-                                        </div>
-
-                                        <!-- Achievements -->
-                                        <div class="space-y-2 text-sm text-gray-600 dark:text-gray-400 text-left">
-                                            <div class="flex items-start">
-                                                <CheckCircleIcon class="w-5 h-5 mr-2 text-purple-600 flex-shrink-0 mt-0.5" />
-                                                <span>Engineered responsive web applications using Laravel, PHP, and modern JavaScript frameworks</span>
-                                            </div>
-                                            <div class="flex items-start">
-                                                <CheckCircleIcon class="w-5 h-5 mr-2 text-purple-600 flex-shrink-0 mt-0.5" />
-                                                <span>Managed 10+ production WordPress sites with 40% improved load times</span>
-                                            </div>
-                                            <div class="flex items-start">
-                                                <CheckCircleIcon class="w-5 h-5 mr-2 text-purple-600 flex-shrink-0 mt-0.5" />
-                                                <span>Administered DigitalOcean cloud infrastructure ensuring high availability</span>
-                                            </div>
-                                            <div class="flex items-start">
-                                                <CheckCircleIcon class="w-5 h-5 mr-2 text-purple-600 flex-shrink-0 mt-0.5" />
-                                                <span>Developed RESTful APIs supporting 5000+ concurrent users</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <!-- Meta Info -->
+                            <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-gray-600 dark:text-gray-400 mb-4">
+                                <div class="flex items-center">
+                                    <MapPinIcon class="w-4 h-4 mr-1" />
+                                    Delhi
+                                </div>
+                                <div class="flex items-center">
+                                    <CalendarIcon class="w-4 h-4 mr-1" />
+                                    Dec 2022 - Jul 2024
                                 </div>
                             </div>
+
+                            <!-- Achievements -->
+                            <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                                <li class="flex items-start">
+                                    <CheckCircleIcon class="w-4 h-4 mr-2 text-purple-600 flex-shrink-0 mt-0.5" />
+                                    <span>Engineered responsive web applications using Laravel, PHP, and modern JavaScript frameworks</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <CheckCircleIcon class="w-4 h-4 mr-2 text-purple-600 flex-shrink-0 mt-0.5" />
+                                    <span>Managed 10+ production WordPress sites with 40% improved load times</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <CheckCircleIcon class="w-4 h-4 mr-2 text-purple-600 flex-shrink-0 mt-0.5" />
+                                    <span>Administered DigitalOcean cloud infrastructure ensuring high availability</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <CheckCircleIcon class="w-4 h-4 mr-2 text-purple-600 flex-shrink-0 mt-0.5" />
+                                    <span>Developed RESTful APIs supporting 5000+ concurrent users</span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
