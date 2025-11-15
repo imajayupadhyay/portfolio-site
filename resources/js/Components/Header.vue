@@ -44,10 +44,14 @@
                         :href="item.href"
                         :class="[
                             'relative px-4 py-2 rounded-lg font-medium transition-all duration-300 group',
-                            isScrolled
+                            activeSection === item.href
+                                ? 'text-blue-600 dark:text-blue-400'
+                                : isScrolled
                                 ? 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
                                 : 'text-white/90 hover:text-white',
-                            'hover:bg-gray-100/10'
+                            activeSection === item.href
+                                ? 'bg-blue-50 dark:bg-blue-900/20'
+                                : 'hover:bg-gray-100/10'
                         ]"
                     >
                         <!-- Icon -->
@@ -59,7 +63,10 @@
 
                         <!-- Animated underline -->
                         <span
-                            class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"
+                            :class="[
+                                'absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-300',
+                                activeSection === item.href ? 'w-full' : 'w-0 group-hover:w-full'
+                            ]"
                         ></span>
                     </a>
 
@@ -171,7 +178,12 @@
                         :key="index"
                         :href="item.href"
                         @click="closeMobileMenu"
-                        class="flex items-center px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 hover:text-white transition-all duration-300 group"
+                        :class="[
+                            'flex items-center px-4 py-3 rounded-lg transition-all duration-300 group',
+                            activeSection === item.href
+                                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
+                                : 'text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 hover:text-white'
+                        ]"
                     >
                         <component
                             :is="item.icon"
@@ -265,20 +277,21 @@ const props = defineProps({
 
 // Navigation items
 const navItems = [
-    { name: 'Home', href: '#home', icon: HomeIcon },
-    { name: 'About', href: '#about', icon: UserIcon },
-    { name: 'Projects', href: '#projects', icon: BriefcaseIcon },
+    { name: 'Home', href: '/', icon: HomeIcon },
     { name: 'Skills', href: '#skills', icon: CodeBracketIcon },
-    { name: 'Contact', href: '#contact', icon: EnvelopeIcon },
+    { name: 'Projects', href: '#projects', icon: BriefcaseIcon },
+    { name: 'Contact', href: '/contact', icon: EnvelopeIcon },
 ];
 
 // State
 const isScrolled = ref(false);
 const isMobileMenuOpen = ref(false);
+const activeSection = ref('/');
 
 // Methods
 const handleScroll = () => {
     isScrolled.value = window.scrollY > 20;
+    updateActiveSection();
 };
 
 const toggleMobileMenu = () => {
@@ -289,9 +302,47 @@ const closeMobileMenu = () => {
     isMobileMenuOpen.value = false;
 };
 
+const updateActiveSection = () => {
+    // Get current path
+    const currentPath = window.location.pathname;
+
+    // Check if we're on a specific page route (not home page)
+    if (currentPath !== '/') {
+        activeSection.value = currentPath;
+        return;
+    }
+
+    // For home page, check sections by scroll position
+    const sections = navItems
+        .filter(item => item.href.startsWith('#'))
+        .map(item => {
+            const id = item.href.substring(1); // Remove # from href
+            return {
+                href: item.href,
+                element: document.getElementById(id)
+            };
+        })
+        .filter(section => section.element);
+
+    // Find the section that is currently in view
+    const scrollPosition = window.scrollY + 100; // Offset for better UX
+
+    for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        if (section.element.offsetTop <= scrollPosition) {
+            activeSection.value = section.href;
+            return;
+        }
+    }
+
+    // Default to home if on home page
+    activeSection.value = '/';
+};
+
 // Lifecycle hooks
 onMounted(() => {
     window.addEventListener('scroll', handleScroll);
+    updateActiveSection(); // Set initial active section
 });
 
 onUnmounted(() => {

@@ -24,7 +24,7 @@
                         >
                             <span class="block text-gray-900 dark:text-white">Ajay Upadhyay</span>
                             <span class="block mt-2 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-                                DevOps & Cloud Engineer
+                                Software Engineer
                             </span>
                         </h1>
                     </div>
