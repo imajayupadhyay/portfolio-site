@@ -131,13 +131,13 @@
                     </div>
 
                     <!-- CTA Button -->
-                    <a
-                        href="#contact"
+                    <button
+                        @click="openContactModal"
                         class="ml-4 px-6 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-medium text-sm shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 hover:scale-105"
                     >
                         Let's Talk
                         <ArrowRightIcon class="w-4 h-4 inline-block ml-1 -mt-1" />
-                    </a>
+                    </button>
                 </div>
 
                 <!-- Mobile menu button -->
@@ -192,14 +192,13 @@
                         {{ item.name }}
                     </a>
 
-                    <a
-                        href="#contact"
-                        @click="closeMobileMenu"
-                        class="flex items-center justify-center px-4 py-3 mt-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300"
+                    <button
+                        @click="openContactModalFromMobile"
+                        class="flex items-center justify-center px-4 py-3 mt-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 w-full"
                     >
                         Let's Talk
                         <ArrowRightIcon class="w-5 h-5 ml-2" />
-                    </a>
+                    </button>
 
                     <!-- Social Links -->
                     <div class="pt-4 mt-4 border-t border-gray-200 dark:border-gray-700">
@@ -246,6 +245,9 @@
                 </div>
             </div>
         </Transition>
+
+        <!-- Contact Form Modal -->
+        <ContactFormModal v-model="showContactModal" />
     </header>
 </template>
 
@@ -262,6 +264,7 @@ import {
     PhoneIcon,
     ArrowRightIcon
 } from '@heroicons/vue/24/outline';
+import ContactFormModal from './ContactFormModal.vue';
 
 // Props
 const props = defineProps({
@@ -287,6 +290,7 @@ const navItems = [
 const isScrolled = ref(false);
 const isMobileMenuOpen = ref(false);
 const activeSection = ref('/');
+const showContactModal = ref(false);
 
 // Methods
 const handleScroll = () => {
@@ -300,6 +304,15 @@ const toggleMobileMenu = () => {
 
 const closeMobileMenu = () => {
     isMobileMenuOpen.value = false;
+};
+
+const openContactModal = () => {
+    showContactModal.value = true;
+};
+
+const openContactModalFromMobile = () => {
+    closeMobileMenu();
+    showContactModal.value = true;
 };
 
 const updateActiveSection = () => {

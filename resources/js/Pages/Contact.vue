@@ -21,125 +21,7 @@
                 <div class="grid lg:grid-cols-2 gap-12 items-start">
                     <!-- Contact Form -->
                     <div class="order-2 lg:order-1 animate-fade-in-left">
-                        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-3xl shadow-2xl p-8 lg:p-12 border border-gray-200/50 dark:border-gray-700/50">
-                            <h2 class="text-3xl font-bold mb-8 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                                Send Me a Message
-                            </h2>
-
-                            <!-- Success Message -->
-                            <div v-if="form.recentlySuccessful" class="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-                                <div class="flex items-center">
-                                    <CheckCircleIcon class="w-5 h-5 text-green-600 dark:text-green-400 mr-2" />
-                                    <p class="text-green-800 dark:text-green-300 font-medium">
-                                        Thank you for contacting us! We'll get back to you soon.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <form @submit.prevent="submitForm" class="space-y-6">
-                                <!-- Name Input -->
-                                <div>
-                                    <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                        Full Name *
-                                    </label>
-                                    <div class="relative">
-                                        <UserIcon class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                                        <input
-                                            id="name"
-                                            v-model="form.name"
-                                            type="text"
-                                            required
-                                            class="w-full pl-12 pr-4 py-3.5 bg-gray-50 dark:bg-gray-900/50 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-400"
-                                            placeholder="John Doe"
-                                        />
-                                    </div>
-                                    <p v-if="form.errors.name" class="mt-1 text-sm text-red-600 dark:text-red-400">{{ form.errors.name }}</p>
-                                </div>
-
-                                <!-- Email Input -->
-                                <div>
-                                    <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                        Email Address *
-                                    </label>
-                                    <div class="relative">
-                                        <EnvelopeIcon class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                                        <input
-                                            id="email"
-                                            v-model="form.email"
-                                            type="email"
-                                            required
-                                            class="w-full pl-12 pr-4 py-3.5 bg-gray-50 dark:bg-gray-900/50 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-400"
-                                            placeholder="john@example.com"
-                                        />
-                                    </div>
-                                    <p v-if="form.errors.email" class="mt-1 text-sm text-red-600 dark:text-red-400">{{ form.errors.email }}</p>
-                                </div>
-
-                                <!-- Phone Input -->
-                                <div>
-                                    <label for="phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                        Phone Number
-                                    </label>
-                                    <div class="relative">
-                                        <PhoneIcon class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                                        <input
-                                            id="phone"
-                                            v-model="form.phone"
-                                            type="tel"
-                                            class="w-full pl-12 pr-4 py-3.5 bg-gray-50 dark:bg-gray-900/50 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-400"
-                                            placeholder="+1 (555) 000-0000"
-                                        />
-                                    </div>
-                                    <p v-if="form.errors.phone" class="mt-1 text-sm text-red-600 dark:text-red-400">{{ form.errors.phone }}</p>
-                                </div>
-
-                                <!-- Subject Input -->
-                                <div>
-                                    <label for="subject" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                        Subject *
-                                    </label>
-                                    <div class="relative">
-                                        <ChatBubbleLeftRightIcon class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                                        <input
-                                            id="subject"
-                                            v-model="form.subject"
-                                            type="text"
-                                            required
-                                            class="w-full pl-12 pr-4 py-3.5 bg-gray-50 dark:bg-gray-900/50 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-400"
-                                            placeholder="Project Inquiry"
-                                        />
-                                    </div>
-                                    <p v-if="form.errors.subject" class="mt-1 text-sm text-red-600 dark:text-red-400">{{ form.errors.subject }}</p>
-                                </div>
-
-                                <!-- Message Textarea -->
-                                <div>
-                                    <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                        Message *
-                                    </label>
-                                    <textarea
-                                        id="message"
-                                        v-model="form.message"
-                                        required
-                                        rows="5"
-                                        class="w-full px-4 py-3.5 bg-gray-50 dark:bg-gray-900/50 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-400 resize-none"
-                                        placeholder="Tell me about your project..."
-                                    ></textarea>
-                                    <p v-if="form.errors.message" class="mt-1 text-sm text-red-600 dark:text-red-400">{{ form.errors.message }}</p>
-                                </div>
-
-                                <!-- Submit Button -->
-                                <button
-                                    type="submit"
-                                    :disabled="form.processing"
-                                    class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
-                                >
-                                    <span v-if="!form.processing">Send Message</span>
-                                    <span v-else>Sending...</span>
-                                    <PaperAirplaneIcon class="w-5 h-5" :class="{ 'animate-pulse': form.processing }" />
-                                </button>
-                            </form>
-                        </div>
+                        <ContactForm />
                     </div>
 
                     <!-- Contact Information & Social Links -->
@@ -281,36 +163,13 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { useForm } from '@inertiajs/vue3';
 import PortfolioLayout from '../Layouts/PortfolioLayout.vue';
+import ContactForm from '../Components/ContactForm.vue';
 import {
     EnvelopeIcon,
     PhoneIcon,
-    MapPinIcon,
-    UserIcon,
-    ChatBubbleLeftRightIcon,
-    PaperAirplaneIcon,
-    CheckCircleIcon
+    MapPinIcon
 } from '@heroicons/vue/24/outline';
-
-// Form handling
-const form = useForm({
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: '',
-});
-
-const submitForm = () => {
-    form.post('/contact', {
-        preserveScroll: true,
-        onSuccess: () => {
-            form.reset();
-        },
-    });
-};
 </script>
 
 <style scoped>
