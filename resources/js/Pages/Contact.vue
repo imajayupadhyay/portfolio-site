@@ -1,4 +1,13 @@
 <template>
+    <Head>
+        <title>Contact Ajay Upadhyay - Cloud & DevOps Engineer | Get In Touch</title>
+        <meta name="description" content="Get in touch with Ajay Upadhyay for cloud engineering, DevOps consulting, or collaboration opportunities. Available for AWS, Azure, and multi-cloud infrastructure projects." />
+        <meta name="keywords" content="Contact Ajay Upadhyay, Cloud Engineer Contact, DevOps Consultant, AWS Expert, Azure Specialist, Hire Cloud Engineer, DevOps Services" />
+        <meta property="og:title" content="Contact Ajay Upadhyay - Cloud & DevOps Engineer" />
+        <meta property="og:description" content="Reach out for cloud engineering projects, DevOps consulting, and collaboration opportunities. Currently accepting new projects." />
+        <link rel="canonical" href="/contact" />
+    </Head>
+
     <PortfolioLayout
         site-name="Ajay Upadhyay"
         logo-initial="A"
@@ -125,19 +134,19 @@
                                     <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Twitter</span>
                                 </a>
 
-                                <!-- Instagram -->
+                                <!-- Topmate -->
                                 <a
-                                    href="https://instagram.com"
+                                    href="https://topmate.io/ajay_upadhyay_oo7"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    class="group flex flex-col items-center justify-center p-6 bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-900/20 dark:to-pink-800/20 rounded-xl hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+                                    class="group flex flex-col items-center justify-center p-6 bg-gradient-to-br from-emerald-50 to-teal-100 dark:from-emerald-900/20 dark:to-teal-800/20 rounded-xl hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
                                 >
-                                    <div class="w-12 h-12 bg-gradient-to-br from-purple-600 via-pink-600 to-orange-500 rounded-lg flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-emerald-600 to-teal-600 rounded-lg flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
                                         <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
                                         </svg>
                                     </div>
-                                    <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Instagram</span>
+                                    <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Topmate</span>
                                 </a>
                             </div>
                         </div>
@@ -163,6 +172,7 @@
 </template>
 
 <script setup>
+import { Head } from '@inertiajs/vue3';
 import PortfolioLayout from '../Layouts/PortfolioLayout.vue';
 import ContactForm from '../Components/ContactForm.vue';
 import {

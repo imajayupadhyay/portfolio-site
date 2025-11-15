@@ -13,21 +13,47 @@
                 <div class="flex-shrink-0">
                     <a
                         href="/"
-                        class="flex items-center space-x-2 group"
+                        class="flex items-center space-x-3 group"
                     >
                         <div class="relative">
-                            <!-- Animated circle background -->
+                            <!-- Animated glow background -->
                             <div
-                                class="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur-md opacity-75 group-hover:opacity-100 transition-opacity duration-300"
+                                class="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl blur-md opacity-75 group-hover:opacity-100 transition-opacity duration-300"
                             ></div>
-                            <!-- Logo content -->
-                            <div class="relative w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-                                <span class="text-white font-bold text-xl">{{ logoInitial }}</span>
-                            </div>
+                            <!-- SVG Logo -->
+                            <svg
+                                class="relative w-12 h-12 transform group-hover:scale-110 transition-transform duration-300"
+                                viewBox="0 0 100 100"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <!-- Background with gradient -->
+                                <defs>
+                                    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#9333ea;stop-opacity:1" />
+                                    </linearGradient>
+                                    <filter id="shadow">
+                                        <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+                                    </filter>
+                                </defs>
+
+                                <!-- Background rounded square -->
+                                <rect x="5" y="5" width="90" height="90" rx="18" fill="url(#logoGradient)" filter="url(#shadow)"/>
+
+                                <!-- Letter A -->
+                                <path d="M 28 70 L 35 45 L 42 70" stroke="white" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                                <line x1="30" y1="62" x2="40" y2="62" stroke="white" stroke-width="4.5" stroke-linecap="round"/>
+
+                                <!-- Letter U -->
+                                <path d="M 58 45 L 58 60 Q 58 70 68 70 Q 78 70 78 60 L 78 45" stroke="white" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+                                <!-- Decorative dot -->
+                                <circle cx="85" cy="20" r="3" fill="#fbbf24" opacity="0.9"/>
+                            </svg>
                         </div>
                         <span
                             :class="[
-                                'text-xl font-bold transition-colors duration-300',
+                                'text-xl font-bold transition-colors duration-300 hidden sm:inline-block',
                                 isScrolled ? 'text-gray-900 dark:text-white' : 'text-white'
                             ]"
                         >
@@ -257,7 +283,6 @@ import {
     Bars3Icon,
     XMarkIcon,
     HomeIcon,
-    UserIcon,
     BriefcaseIcon,
     CodeBracketIcon,
     EnvelopeIcon,
