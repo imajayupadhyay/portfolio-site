@@ -24,7 +24,7 @@
                         >
                             <span class="block text-gray-900 dark:text-white">Ajay Upadhyay</span>
                             <span class="block mt-2 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-                                Software Engineer
+                                {{ typedText }}<span class="animate-blink">|</span>
                             </span>
                         </h1>
                     </div>
@@ -92,7 +92,7 @@
                     <!-- Image Container -->
                     <div class="relative z-10 max-w-md mx-auto">
                         <!-- Floating Badge -->
-                        <div class="absolute -top-8 -right-4 bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-4 transform rotate-3 hover:rotate-6 transition-transform duration-300">
+                        <div class="absolute -top-8 -right-4 z-30 bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-4 hover:scale-110 transition-all duration-300 animate-float-badge" style="--rotate-start: 3deg; animation-delay: 0s;">
                             <div class="flex items-center space-x-2">
                                 <div class="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center">
                                     <CloudIcon class="w-6 h-6 text-white" />
@@ -105,7 +105,7 @@
                         </div>
 
                         <!-- AWS Badge -->
-                        <div class="absolute top-1/4 -left-8 bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-3 transform -rotate-6 hover:-rotate-12 transition-transform duration-300">
+                        <div class="absolute top-1/4 -left-8 z-30 bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-3 hover:scale-110 transition-all duration-300 animate-float-badge" style="--rotate-start: -6deg; animation-delay: 0.5s;">
                             <div class="text-center">
                                 <div class="text-2xl font-bold bg-gradient-to-r from-orange-500 to-yellow-500 bg-clip-text text-transparent">AWS</div>
                                 <div class="text-xs text-gray-600 dark:text-gray-400">Certified</div>
@@ -113,7 +113,7 @@
                         </div>
 
                         <!-- Azure Badge -->
-                        <div class="absolute bottom-1/4 -right-8 bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-3 transform rotate-6 hover:rotate-12 transition-transform duration-300">
+                        <div class="absolute bottom-1/4 -right-8 z-30 bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-3 hover:scale-110 transition-all duration-300 animate-float-badge" style="--rotate-start: 6deg; animation-delay: 1s;">
                             <div class="text-center">
                                 <div class="text-2xl font-bold bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">Azure</div>
                                 <div class="text-xs text-gray-600 dark:text-gray-400">Certified</div>
@@ -127,26 +127,12 @@
 
                             <!-- Image -->
                             <div class="relative bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 rounded-3xl overflow-hidden transform -rotate-3 hover:rotate-0 transition-transform duration-500 shadow-2xl">
-                                <!-- Placeholder for profile image -->
                                 <div class="aspect-square flex items-center justify-center">
-                                    <div class="text-center p-8">
-                                        <div class="w-48 h-48 mx-auto bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mb-4">
-                                            <UserIcon class="w-32 h-32 text-white" />
-                                        </div>
-                                        <p class="text-sm text-gray-500 dark:text-gray-400">
-                                            Upload your profile image at:<br />
-                                            <code class="text-xs bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded mt-2 inline-block">
-                                                public/images/profile.jpg
-                                            </code>
-                                        </p>
-                                    </div>
-
-                                    <!-- Uncomment when you add your image -->
-                                    <!-- <img
-                                        src="/images/profile.jpg"
+                                    <img
+                                        src="/images/profile.png"
                                         alt="Ajay Upadhyay - DevOps & Cloud Engineer"
                                         class="w-full h-full object-cover"
-                                    /> -->
+                                    />
                                 </div>
 
                                 <!-- Overlay gradient -->
@@ -192,12 +178,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import {
     EnvelopeIcon,
     ArrowRightIcon,
     ArrowDownTrayIcon,
-    UserIcon,
     CloudIcon,
     ChevronDownIcon
 } from '@heroicons/vue/24/outline';
@@ -205,11 +190,69 @@ import ContactFormModal from '../ContactFormModal.vue';
 
 // State
 const showContactModal = ref(false);
+const typedText = ref('');
+
+// Roles to cycle through
+const roles = [
+    'Software Engineer',
+    'Cloud Engineer',
+    'DevOps Engineer',
+    'AWS Solutions Architect',
+    'Azure Administrator'
+];
+
+let currentRoleIndex = 0;
+let currentCharIndex = 0;
+let isDeleting = false;
+let typingTimeout = null;
+
+// Typewriter effect
+const typeWriter = () => {
+    const currentRole = roles[currentRoleIndex];
+
+    if (!isDeleting) {
+        // Typing
+        if (currentCharIndex < currentRole.length) {
+            typedText.value = currentRole.substring(0, currentCharIndex + 1);
+            currentCharIndex++;
+            typingTimeout = setTimeout(typeWriter, 100); // Speed of typing
+        } else {
+            // Pause at end before deleting
+            typingTimeout = setTimeout(() => {
+                isDeleting = true;
+                typeWriter();
+            }, 2000); // Pause duration
+        }
+    } else {
+        // Deleting
+        if (currentCharIndex > 0) {
+            typedText.value = currentRole.substring(0, currentCharIndex - 1);
+            currentCharIndex--;
+            typingTimeout = setTimeout(typeWriter, 50); // Speed of deleting
+        } else {
+            // Move to next role
+            isDeleting = false;
+            currentRoleIndex = (currentRoleIndex + 1) % roles.length;
+            typingTimeout = setTimeout(typeWriter, 500); // Pause before typing next role
+        }
+    }
+};
 
 // Methods
 const openContactModal = () => {
     showContactModal.value = true;
 };
+
+// Lifecycle hooks
+onMounted(() => {
+    typeWriter();
+});
+
+onUnmounted(() => {
+    if (typingTimeout) {
+        clearTimeout(typingTimeout);
+    }
+});
 </script>
 
 <style scoped>
@@ -269,5 +312,34 @@ const openContactModal = () => {
 
 .animate-float-delayed {
     animation: float-delayed 6s ease-in-out infinite;
+}
+
+@keyframes blink {
+    0%, 49% {
+        opacity: 1;
+    }
+    50%, 100% {
+        opacity: 0;
+    }
+}
+
+@keyframes float-badge {
+    0%, 100% {
+        transform: translateY(0) translateX(0) rotate(var(--rotate-start));
+    }
+    33% {
+        transform: translateY(-15px) translateX(5px) rotate(calc(var(--rotate-start) + 3deg));
+    }
+    66% {
+        transform: translateY(-5px) translateX(-5px) rotate(calc(var(--rotate-start) - 3deg));
+    }
+}
+
+.animate-blink {
+    animation: blink 1s infinite;
+}
+
+.animate-float-badge {
+    animation: float-badge 4s ease-in-out infinite;
 }
 </style>
