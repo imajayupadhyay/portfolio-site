@@ -1,5 +1,5 @@
 <template>
-    <section id="experience" class="relative py-20 sm:py-28 overflow-hidden">
+    <section id="experience" class="relative py-20 overflow-hidden">
         <!-- Background -->
         <div class="absolute inset-0 bg-gradient-to-b from-white via-gray-50 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"></div>
 

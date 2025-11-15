@@ -1,5 +1,5 @@
 <template>
-    <section id="education" class="relative py-16 sm:py-20 overflow-hidden">
+    <section id="education" class="relative py-20 overflow-hidden">
         <!-- Background -->
         <div class="absolute inset-0 bg-gradient-to-b from-white via-gray-50 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"></div>
 
@@ -9,7 +9,7 @@
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <!-- Section Header -->
-            <div class="text-center mb-12">
+            <div class="text-center mb-16">
                 <div class="inline-block mb-4 animate-fade-in-up">
                     <span class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-blue-600/10 to-purple-600/10 border border-blue-600/20 text-sm font-medium text-blue-600 dark:text-blue-400">
                         <AcademicCapIcon class="w-4 h-4 mr-2" />
@@ -25,7 +25,7 @@
             </div>
 
             <!-- Education Cards -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <!-- MCA Card -->
                 <div
                     class="group relative animate-fade-in-up"
