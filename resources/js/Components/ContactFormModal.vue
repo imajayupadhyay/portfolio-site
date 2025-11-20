@@ -1,22 +1,23 @@
 <template>
-    <!-- Modal Overlay -->
-    <Transition
-        enter-active-class="transition-all duration-300 ease-out"
-        enter-from-class="opacity-0"
-        enter-to-class="opacity-100"
-        leave-active-class="transition-all duration-200 ease-in"
-        leave-from-class="opacity-100"
-        leave-to-class="opacity-0"
-    >
-        <div
-            v-if="modelValue"
-            class="fixed inset-0 z-[100] bg-black/60 backdrop-blur-md overflow-y-auto"
-            @click="closeModal"
+    <!-- Modal Overlay with Teleport -->
+    <Teleport to="body">
+        <Transition
+            enter-active-class="transition-all duration-300 ease-out"
+            enter-from-class="opacity-0"
+            enter-to-class="opacity-100"
+            leave-active-class="transition-all duration-200 ease-in"
+            leave-from-class="opacity-100"
+            leave-to-class="opacity-0"
         >
+            <div
+                v-if="modelValue && isMounted"
+                class="fixed inset-0 z-[9999] bg-black/60 backdrop-blur-md overflow-y-auto"
+                @click="closeModal"
+            >
             <!-- Sticky Close Button - Always visible on mobile -->
             <button
                 @click="closeModal"
-                class="fixed top-4 right-4 z-[110] w-12 h-12 flex items-center justify-center rounded-full bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-xl transition-all duration-300 hover:scale-110 border-2 border-gray-200 dark:border-gray-700"
+                class="fixed top-4 right-4 z-[10000] w-12 h-12 flex items-center justify-center rounded-full bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-xl transition-all duration-300 hover:scale-110 border-2 border-gray-200 dark:border-gray-700"
                 aria-label="Close modal"
             >
                 <XMarkIcon class="w-6 h-6" />
@@ -41,14 +42,18 @@
                     </div>
                 </Transition>
             </div>
-        </div>
-    </Transition>
+            </div>
+        </Transition>
+    </Teleport>
 </template>
 
 <script setup>
-import { onUnmounted, watch } from 'vue';
+import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue';
 import { XMarkIcon } from '@heroicons/vue/24/outline';
 import ContactForm from './ContactForm.vue';
+
+// Track mounted state to prevent SSR issues
+const isMounted = ref(false);
 
 // Props
 const props = defineProps({
@@ -80,13 +85,22 @@ const handleEscape = (event) => {
     }
 };
 
+// Initialize mounted state
+onMounted(() => {
+    isMounted.value = true;
+});
+
 // Prevent body scroll when modal is open
-watch(() => props.modelValue, (isOpen) => {
+watch(() => props.modelValue, async (isOpen) => {
     if (isOpen) {
+        // Use nextTick to ensure DOM is ready
+        await nextTick();
         document.body.style.overflow = 'hidden';
+        document.body.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`;
         window.addEventListener('keydown', handleEscape);
     } else {
         document.body.style.overflow = '';
+        document.body.style.paddingRight = '';
         window.removeEventListener('keydown', handleEscape);
     }
 });
@@ -94,6 +108,8 @@ watch(() => props.modelValue, (isOpen) => {
 // Cleanup on unmount
 onUnmounted(() => {
     document.body.style.overflow = '';
+    document.body.style.paddingRight = '';
     window.removeEventListener('keydown', handleEscape);
+    isMounted.value = false;
 });
 </script>

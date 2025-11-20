@@ -128,7 +128,7 @@
         >
             <div
                 v-if="showSuccessModal"
-                class="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md"
+                class="fixed inset-0 z-[10001] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md"
                 @click="closeModal"
             >
                 <Transition
