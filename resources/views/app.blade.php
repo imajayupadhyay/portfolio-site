@@ -4,6 +4,19 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <!-- Theme Script - Must run before page renders to prevent flash -->
+        <script>
+            // Initialize theme before page loads to prevent flash
+            (function() {
+                const theme = localStorage.getItem('theme') || 'dark'; // Default to dark
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            })();
+        </script>
+
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Favicon -->

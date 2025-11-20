@@ -4,7 +4,9 @@
             'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
             isScrolled
                 ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-lg'
-                : 'bg-transparent'
+                : isDarkMode
+                ? 'bg-transparent'
+                : 'bg-white/80 backdrop-blur-lg shadow-lg'
         ]"
     >
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -54,7 +56,11 @@
                         <span
                             :class="[
                                 'text-xl font-bold transition-colors duration-300 hidden sm:inline-block',
-                                isScrolled ? 'text-gray-900 dark:text-white' : 'text-white'
+                                isScrolled
+                                    ? 'text-gray-900 dark:text-white'
+                                    : isDarkMode
+                                    ? 'text-white'
+                                    : 'text-gray-900'
                             ]"
                         >
                             {{ siteName }}
@@ -74,7 +80,9 @@
                                 ? 'text-blue-600 dark:text-blue-400'
                                 : isScrolled
                                 ? 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
-                                : 'text-white/90 hover:text-white',
+                                : isDarkMode
+                                ? 'text-white/90 hover:text-white'
+                                : 'text-gray-700 hover:text-blue-600',
                             activeSection === item.href
                                 ? 'bg-blue-50 dark:bg-blue-900/20'
                                 : 'hover:bg-gray-100/10'
@@ -106,7 +114,9 @@
                                 'w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 hover:text-white',
                                 isScrolled
                                     ? 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300'
-                                    : 'bg-white/10 text-white'
+                                    : isDarkMode
+                                    ? 'bg-white/10 text-white'
+                                    : 'bg-gray-100 text-gray-700'
                             ]"
                             aria-label="LinkedIn"
                         >
@@ -122,7 +132,9 @@
                                 'w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 hover:text-white',
                                 isScrolled
                                     ? 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300'
-                                    : 'bg-white/10 text-white'
+                                    : isDarkMode
+                                    ? 'bg-white/10 text-white'
+                                    : 'bg-gray-100 text-gray-700'
                             ]"
                             aria-label="GitHub"
                         >
@@ -136,7 +148,9 @@
                                 'w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 hover:text-white',
                                 isScrolled
                                     ? 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300'
-                                    : 'bg-white/10 text-white'
+                                    : isDarkMode
+                                    ? 'bg-white/10 text-white'
+                                    : 'bg-gray-100 text-gray-700'
                             ]"
                             aria-label="Email"
                         >
@@ -148,12 +162,41 @@
                                 'w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 hover:text-white',
                                 isScrolled
                                     ? 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300'
-                                    : 'bg-white/10 text-white'
+                                    : isDarkMode
+                                    ? 'bg-white/10 text-white'
+                                    : 'bg-gray-100 text-gray-700'
                             ]"
                             aria-label="Phone"
                         >
                             <PhoneIcon class="w-4 h-4" />
                         </a>
+
+                        <!-- Theme Toggle Button -->
+                        <button
+                            @click="toggleTheme"
+                            :class="[
+                                'w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 hover:text-white',
+                                isScrolled
+                                    ? 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300'
+                                    : isDarkMode
+                                    ? 'bg-white/10 text-white'
+                                    : 'bg-gray-100 text-gray-700'
+                            ]"
+                            :aria-label="isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'"
+                        >
+                            <Transition
+                                enter-active-class="transition-all duration-300 ease-out"
+                                enter-from-class="opacity-0 rotate-90"
+                                enter-to-class="opacity-100 rotate-0"
+                                leave-active-class="transition-all duration-300 ease-in"
+                                leave-from-class="opacity-100 rotate-0"
+                                leave-to-class="opacity-0 -rotate-90"
+                                mode="out-in"
+                            >
+                                <SunIcon v-if="isDarkMode" class="w-4 h-4" key="sun" />
+                                <MoonIcon v-else class="w-4 h-4" key="moon" />
+                            </Transition>
+                        </button>
                     </div>
 
                     <!-- CTA Button -->
@@ -174,7 +217,9 @@
                             'p-2 rounded-lg transition-colors duration-300',
                             isScrolled
                                 ? 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
-                                : 'text-white hover:bg-white/10'
+                                : isDarkMode
+                                ? 'text-white hover:bg-white/10'
+                                : 'text-gray-700 hover:bg-gray-100'
                         ]"
                         aria-label="Toggle menu"
                     >
@@ -225,6 +270,33 @@
                         Let's Talk
                         <ArrowRightIcon class="w-5 h-5 ml-2" />
                     </button>
+
+                    <!-- Theme Toggle -->
+                    <div class="pt-4 mt-4 border-t border-gray-200 dark:border-gray-700">
+                        <button
+                            @click="toggleTheme"
+                            class="flex items-center justify-between w-full px-4 py-3 rounded-lg transition-all duration-300 text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 hover:text-white group"
+                        >
+                            <span class="flex items-center">
+                                <Transition
+                                    enter-active-class="transition-all duration-300 ease-out"
+                                    enter-from-class="opacity-0 rotate-90"
+                                    enter-to-class="opacity-100 rotate-0"
+                                    leave-active-class="transition-all duration-300 ease-in"
+                                    leave-from-class="opacity-100 rotate-0"
+                                    leave-to-class="opacity-0 -rotate-90"
+                                    mode="out-in"
+                                >
+                                    <SunIcon v-if="isDarkMode" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform duration-300" key="sun" />
+                                    <MoonIcon v-else class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform duration-300" key="moon" />
+                                </Transition>
+                                {{ isDarkMode ? 'Light Mode' : 'Dark Mode' }}
+                            </span>
+                            <span class="text-xs px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full">
+                                {{ isDarkMode ? 'OFF' : 'ON' }}
+                            </span>
+                        </button>
+                    </div>
 
                     <!-- Social Links -->
                     <div class="pt-4 mt-4 border-t border-gray-200 dark:border-gray-700">
@@ -287,7 +359,9 @@ import {
     CodeBracketIcon,
     EnvelopeIcon,
     PhoneIcon,
-    ArrowRightIcon
+    ArrowRightIcon,
+    SunIcon,
+    MoonIcon
 } from '@heroicons/vue/24/outline';
 import ContactFormModal from './ContactFormModal.vue';
 
@@ -316,6 +390,7 @@ const isScrolled = ref(false);
 const isMobileMenuOpen = ref(false);
 const activeSection = ref('/');
 const showContactModal = ref(false);
+const isDarkMode = ref(false);
 
 // Methods
 const handleScroll = () => {
@@ -377,10 +452,32 @@ const updateActiveSection = () => {
     activeSection.value = '/';
 };
 
+const toggleTheme = () => {
+    isDarkMode.value = !isDarkMode.value;
+    const theme = isDarkMode.value ? 'dark' : 'light';
+
+    // Update DOM
+    if (isDarkMode.value) {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+    }
+
+    // Save to localStorage
+    localStorage.setItem('theme', theme);
+};
+
+const initializeTheme = () => {
+    // Get theme from localStorage or default to dark
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    isDarkMode.value = savedTheme === 'dark';
+};
+
 // Lifecycle hooks
 onMounted(() => {
     window.addEventListener('scroll', handleScroll);
     updateActiveSection(); // Set initial active section
+    initializeTheme(); // Initialize theme state
 });
 
 onUnmounted(() => {

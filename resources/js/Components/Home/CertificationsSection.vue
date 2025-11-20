@@ -55,11 +55,8 @@
                                 <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
                                     AWS Certified Developer
                                 </h3>
-                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-1">
-                                    Associate Level
-                                </p>
-                                <p class="text-xs text-gray-500 dark:text-gray-500 font-mono">
-                                    DVA-C02
+                                <p class="text-sm text-gray-600 dark:text-gray-400">
+                                    <span class="font-semibold">Associate</span> <span class="font-light">- DVA-C02</span>
                                 </p>
                             </div>
 
@@ -113,11 +110,8 @@
                                 <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
                                     Microsoft Certified
                                 </h3>
-                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-1">
-                                    Associate Level
-                                </p>
-                                <p class="text-xs text-gray-500 dark:text-gray-500 font-mono">
-                                    Azure Associate
+                                <p class="text-sm text-gray-600 dark:text-gray-400">
+                                    <span class="font-semibold">Associate</span> <span class="font-light">- Azure Administrator</span>
                                 </p>
                             </div>
 
@@ -171,11 +165,8 @@
                                 <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
                                     Microsoft Certified
                                 </h3>
-                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-1">
-                                    Fundamentals Level
-                                </p>
-                                <p class="text-xs text-gray-500 dark:text-gray-500 font-mono">
-                                    Azure Fundamentals
+                                <p class="text-sm text-gray-600 dark:text-gray-400">
+                                    <span class="font-semibold">Fundamentals</span> <span class="font-light">- Azure Fundamentals</span>
                                 </p>
                             </div>
 

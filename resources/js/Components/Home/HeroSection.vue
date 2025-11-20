@@ -62,14 +62,14 @@
                         class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 animate-fade-in-up"
                         style="animation-delay: 0.5s"
                     >
-                        <button
-                            @click="openContactModal"
+                        <a
+                            href="/contact"
                             class="group px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-medium text-sm shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 inline-flex items-center w-full sm:w-auto justify-center"
                         >
                             <EnvelopeIcon class="w-4 h-4 mr-2" />
                             Get In Touch
                             <ArrowRightIcon class="w-3 h-3 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-                        </button>
+                        </a>
                         <a
                             href="/Ajay_Upadhyay_Resume.pdf"
                             download="Ajay_Upadhyay_Resume.pdf"
@@ -173,9 +173,6 @@
                 <ChevronDownIcon class="w-6 h-6 text-gray-400" />
             </div>
         </div>
-
-        <!-- Contact Form Modal -->
-        <ContactFormModal v-model="showContactModal" />
     </section>
 </template>
 
@@ -188,10 +185,8 @@ import {
     CloudIcon,
     ChevronDownIcon
 } from '@heroicons/vue/24/outline';
-import ContactFormModal from '../ContactFormModal.vue';
 
 // State
-const showContactModal = ref(false);
 const typedText = ref('');
 
 // Roles to cycle through
@@ -238,11 +233,6 @@ const typeWriter = () => {
             typingTimeout = setTimeout(typeWriter, 500); // Pause before typing next role
         }
     }
-};
-
-// Methods
-const openContactModal = () => {
-    showContactModal.value = true;
 };
 
 // Lifecycle hooks

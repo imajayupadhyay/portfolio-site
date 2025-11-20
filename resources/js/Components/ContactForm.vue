@@ -1,14 +1,14 @@
 <template>
     <div>
         <!-- Contact Form -->
-        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-3xl shadow-2xl p-8 lg:p-12 border border-gray-200/50 dark:border-gray-700/50">
-            <h2 class="text-3xl font-bold mb-8 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl md:rounded-3xl shadow-2xl p-6 md:p-8 lg:p-12 border border-gray-200/50 dark:border-gray-700/50">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-8 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 Send Me a Message
             </h2>
 
-            <form @submit.prevent="submitForm" class="space-y-6">
+            <form @submit.prevent="submitForm" class="space-y-4 md:space-y-6">
                 <!-- Row 1: Name and Email -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                     <!-- Name Input -->
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -49,7 +49,7 @@
                 </div>
 
                 <!-- Row 2: Phone and Subject -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                     <!-- Phone Input -->
                     <div>
                         <label for="phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -97,7 +97,7 @@
                         id="message"
                         v-model="form.message"
                         required
-                        rows="5"
+                        rows="4"
                         class="w-full px-4 py-3.5 bg-gray-50 dark:bg-gray-900/50 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-400 resize-none"
                         placeholder="Tell me about your project..."
                     ></textarea>
@@ -128,7 +128,7 @@
         >
             <div
                 v-if="showSuccessModal"
-                class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+                class="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md"
                 @click="closeModal"
             >
                 <Transition
