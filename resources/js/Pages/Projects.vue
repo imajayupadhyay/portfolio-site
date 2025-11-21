@@ -24,17 +24,16 @@
                     <div class="inline-block mb-4">
                         <span class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-blue-600/10 to-purple-600/10 border border-blue-600/20 text-sm font-medium text-blue-600 dark:text-blue-400">
                             <BriefcaseIcon class="w-4 h-4 mr-2" />
-                            Portfolio
+                            {{ settings.projects_badge || 'Portfolio' }}
                         </span>
                     </div>
                     <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
                         <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                            My Projects
+                            {{ settings.projects_heading || 'My Projects' }}
                         </span>
                     </h1>
                     <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                        A collection of innovative solutions built with cutting-edge technologies.
-                        Each project represents a unique challenge solved with creativity and technical expertise.
+                        {{ settings.projects_paragraph || 'A collection of innovative solutions built with cutting-edge technologies. Each project represents a unique challenge solved with creativity and technical expertise.' }}
                     </p>
                 </div>
 
@@ -67,16 +66,16 @@
                 <div class="mt-20 text-center animate-fade-in-up" style="animation-delay: 0.4s">
                     <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-12 shadow-2xl">
                         <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
-                            Have a Project in Mind?
+                            {{ settings.projects_cta_heading || 'Have a Project in Mind?' }}
                         </h2>
                         <p class="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-                            Let's collaborate and bring your ideas to life with cutting-edge cloud and DevOps solutions.
+                            {{ settings.projects_cta_text || "Let's collaborate and bring your ideas to life with cutting-edge cloud and DevOps solutions." }}
                         </p>
                         <a
                             href="/contact"
                             class="inline-flex items-center px-8 py-4 bg-white text-blue-600 rounded-xl font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
                         >
-                            Get In Touch
+                            {{ settings.projects_cta_button || 'Get In Touch' }}
                             <ArrowRightIcon class="w-5 h-5 ml-2" />
                         </a>
                     </div>
@@ -92,11 +91,14 @@ import PortfolioLayout from '../Layouts/PortfolioLayout.vue';
 import ProjectCard from '../Components/ProjectCard.vue';
 import { BriefcaseIcon, ArrowRightIcon } from '@heroicons/vue/24/outline';
 
-// Props from controller
-const props = defineProps({
+defineProps({
     projects: {
         type: Array,
         default: () => []
+    },
+    settings: {
+        type: Object,
+        default: () => ({})
     }
 });
 </script>

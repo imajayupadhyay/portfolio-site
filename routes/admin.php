@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\MessagesController;
 use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Admin\ProjectsController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -30,5 +31,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/contact/social', [SettingsController::class, 'storeSocialLink'])->name('contact.social.store');
         Route::put('/contact/social/{socialLink}', [SettingsController::class, 'updateSocialLink'])->name('contact.social.update');
         Route::delete('/contact/social/{socialLink}', [SettingsController::class, 'destroySocialLink'])->name('contact.social.destroy');
+
+        // Projects
+        Route::get('/projects', [ProjectsController::class, 'index'])->name('projects.index');
+        Route::post('/projects', [ProjectsController::class, 'store'])->name('projects.store');
+        Route::put('/projects/{project}', [ProjectsController::class, 'update'])->name('projects.update');
+        Route::delete('/projects/{project}', [ProjectsController::class, 'destroy'])->name('projects.destroy');
+        Route::put('/projects-settings', [ProjectsController::class, 'updateSettings'])->name('projects.settings');
     });
 });

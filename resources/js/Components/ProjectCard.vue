@@ -60,8 +60,8 @@
                     rel="noopener noreferrer"
                     class="flex-1 flex items-center justify-center px-4 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 group/btn"
                 >
-                    <EyeIcon class="w-5 h-5 mr-2 group-hover/btn:scale-110 transition-transform duration-300" />
-                    View Project
+                    <GlobeAltIcon class="w-5 h-5 mr-2 group-hover/btn:scale-110 transition-transform duration-300" />
+                    Live Demo
                 </a>
             </div>
         </div>
@@ -69,7 +69,7 @@
 </template>
 
 <script setup>
-import { CodeBracketIcon, EyeIcon } from '@heroicons/vue/24/outline';
+import { CodeBracketIcon, GlobeAltIcon } from '@heroicons/vue/24/outline';
 
 const props = defineProps({
     project: {
