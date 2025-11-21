@@ -16,7 +16,7 @@
         <HeroSection />
 
         <!-- Certifications Section -->
-        <CertificationsSection />
+        <CertificationsSection :certifications="certifications" :settings="certificationSettings" />
 
         <!-- Skills Section -->
         <SkillsSection />
@@ -40,5 +40,13 @@ import EducationSection from '../Components/Home/EducationSection.vue';
 
 defineProps({
     laravelVersion: String,
+    certifications: {
+        type: Array,
+        default: () => []
+    },
+    certificationSettings: {
+        type: Object,
+        default: () => ({})
+    }
 });
 </script>

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\MessagesController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\ProjectsController;
+use App\Http\Controllers\Admin\CertificationsController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -38,5 +39,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('/projects/{project}', [ProjectsController::class, 'update'])->name('projects.update');
         Route::delete('/projects/{project}', [ProjectsController::class, 'destroy'])->name('projects.destroy');
         Route::put('/projects-settings', [ProjectsController::class, 'updateSettings'])->name('projects.settings');
+
+        // Certifications
+        Route::get('/certifications', [CertificationsController::class, 'index'])->name('certifications.index');
+        Route::post('/certifications', [CertificationsController::class, 'store'])->name('certifications.store');
+        Route::put('/certifications/{certification}', [CertificationsController::class, 'update'])->name('certifications.update');
+        Route::delete('/certifications/{certification}', [CertificationsController::class, 'destroy'])->name('certifications.destroy');
+        Route::post('/certifications/upload-badge', [CertificationsController::class, 'uploadBadge'])->name('certifications.upload');
+        Route::put('/certifications-settings', [CertificationsController::class, 'updateSettings'])->name('certifications.settings');
     });
 });

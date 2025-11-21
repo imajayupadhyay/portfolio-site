@@ -13,66 +13,94 @@
                 <div class="inline-block mb-4 animate-fade-in-up">
                     <span class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-blue-600/10 to-purple-600/10 border border-blue-600/20 text-sm font-medium text-blue-600 dark:text-blue-400">
                         <AcademicCapIcon class="w-4 h-4 mr-2" />
-                        Professional Certifications
+                        {{ settings.certifications_badge || 'Professional Certifications' }}
                     </span>
                 </div>
                 <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 animate-fade-in-up" style="animation-delay: 0.1s">
-                    Industry Certifications
+                    {{ settings.certifications_heading || 'Industry Certifications' }}
                 </h2>
                 <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto animate-fade-in-up" style="animation-delay: 0.2s">
-                    Validated expertise in cloud computing and DevOps practices
+                    {{ settings.certifications_description || 'Validated expertise in cloud computing and DevOps practices' }}
                 </p>
             </div>
 
             <!-- Certifications Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- AWS Certification -->
                 <div
+                    v-for="(cert, index) in certifications"
+                    :key="cert.id"
                     class="group relative animate-fade-in-up"
-                    style="animation-delay: 0.3s"
+                    :class="{ 'md:col-span-2 lg:col-span-1': index === certifications.length - 1 && certifications.length % 3 === 1 }"
+                    :style="{ animationDelay: `${0.3 + index * 0.1}s` }"
                 >
                     <div class="relative h-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl rounded-3xl p-8 border border-gray-200/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden">
                         <!-- Gradient Overlay on Hover -->
-                        <div class="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-yellow-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div
+                            class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                            :style="{ background: `linear-gradient(135deg, ${cert.gradient_from}10, ${cert.gradient_to}10)` }"
+                        ></div>
 
                         <!-- Glow Effect -->
-                        <div class="absolute -inset-1 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-3xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
+                        <div
+                            class="absolute -inset-1 rounded-3xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500"
+                            :style="{ background: `linear-gradient(135deg, ${cert.gradient_from}, ${cert.gradient_to})` }"
+                        ></div>
 
                         <div class="relative z-10">
                             <!-- Badge Image -->
                             <div class="mb-6">
                                 <div class="w-48 h-48 mx-auto flex items-center justify-center p-4 transform group-hover:scale-105 transition-all duration-500">
                                     <img
-                                        src="/images/badges/aws-certified-developer-associate copy.png"
-                                        alt="AWS Certified Developer Associate"
+                                        v-if="cert.badge_image"
+                                        :src="cert.badge_image"
+                                        :alt="cert.title"
                                         class="w-full h-full object-contain drop-shadow-xl"
                                     />
+                                    <div
+                                        v-else
+                                        class="w-full h-full rounded-full flex items-center justify-center"
+                                        :style="{ background: `linear-gradient(135deg, ${cert.gradient_from}, ${cert.gradient_to})` }"
+                                    >
+                                        <AcademicCapIcon class="w-20 h-20 text-white" />
+                                    </div>
                                 </div>
                             </div>
 
                             <!-- Certification Info -->
                             <div class="text-center mb-6">
                                 <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                                    AWS Certified Developer
+                                    {{ cert.title }}
                                 </h3>
                                 <p class="text-sm text-gray-600 dark:text-gray-400">
-                                    <span class="font-semibold">Associate</span> <span class="font-light">- DVA-C02</span>
+                                    <span class="font-semibold">{{ cert.level }}</span>
+                                    <span v-if="cert.code" class="font-light"> - {{ cert.code }}</span>
                                 </p>
                             </div>
 
                             <!-- Provider -->
                             <div class="flex items-center justify-center mb-6">
-                                <div class="px-4 py-2 bg-gradient-to-r from-orange-500/10 to-yellow-500/10 rounded-full border border-orange-500/20">
-                                    <span class="text-sm font-medium text-orange-600 dark:text-orange-400">Amazon Web Services</span>
+                                <div
+                                    class="px-4 py-2 rounded-full border"
+                                    :style="{
+                                        background: `linear-gradient(135deg, ${cert.gradient_from}15, ${cert.gradient_to}15)`,
+                                        borderColor: `${cert.gradient_from}30`
+                                    }"
+                                >
+                                    <span
+                                        class="text-sm font-medium"
+                                        :style="{ color: cert.gradient_from }"
+                                    >{{ cert.provider }}</span>
                                 </div>
                             </div>
 
                             <!-- Verify Button -->
                             <a
-                                href="https://www.credly.com/badges/1a1c6387-8fc8-4879-b2f4-96c4bb00a548/public_url"
+                                v-if="cert.credential_url"
+                                :href="cert.credential_url"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                class="flex items-center justify-center w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                                class="flex items-center justify-center w-full px-6 py-3 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                                :style="{ background: `linear-gradient(135deg, ${cert.gradient_from}, ${cert.gradient_to})` }"
                             >
                                 <ShieldCheckIcon class="w-5 h-5 mr-2" />
                                 Verify Credential
@@ -80,116 +108,12 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Azure Administrator Certification -->
-                <div
-                    class="group relative animate-fade-in-up"
-                    style="animation-delay: 0.4s"
-                >
-                    <div class="relative h-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl rounded-3xl p-8 border border-gray-200/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden">
-                        <!-- Gradient Overlay on Hover -->
-                        <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                        <!-- Glow Effect -->
-                        <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-3xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
-
-                        <div class="relative z-10">
-                            <!-- Badge Image -->
-                            <div class="mb-6">
-                                <div class="w-48 h-48 mx-auto flex items-center justify-center p-4 transform group-hover:scale-105 transition-all duration-500">
-                                    <img
-                                        src="/images/badges/microsoft-certified-associate-badge.svg"
-                                        alt="Microsoft Certified Associate"
-                                        class="w-full h-full object-contain drop-shadow-xl"
-                                    />
-                                </div>
-                            </div>
-
-                            <!-- Certification Info -->
-                            <div class="text-center mb-6">
-                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                                    Microsoft Certified
-                                </h3>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">
-                                    <span class="font-semibold">Associate</span> <span class="font-light">- Azure Administrator</span>
-                                </p>
-                            </div>
-
-                            <!-- Provider -->
-                            <div class="flex items-center justify-center mb-6">
-                                <div class="px-4 py-2 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-full border border-blue-500/20">
-                                    <span class="text-sm font-medium text-blue-600 dark:text-blue-400">Microsoft Azure</span>
-                                </div>
-                            </div>
-
-                            <!-- Verify Button -->
-                            <a
-                                href="https://learn.microsoft.com/en-us/users/AjayUpadhyay-007/credentials/37149BE839FE215A"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="flex items-center justify-center w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-                            >
-                                <ShieldCheckIcon class="w-5 h-5 mr-2" />
-                                Verify Credential
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Azure Fundamentals Certification -->
-                <div
-                    class="group relative animate-fade-in-up md:col-span-2 lg:col-span-1"
-                    style="animation-delay: 0.5s"
-                >
-                    <div class="relative h-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl rounded-3xl p-8 border border-gray-200/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden">
-                        <!-- Gradient Overlay on Hover -->
-                        <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                        <!-- Glow Effect -->
-                        <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-3xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
-
-                        <div class="relative z-10">
-                            <!-- Badge Image -->
-                            <div class="mb-6">
-                                <div class="w-48 h-48 mx-auto flex items-center justify-center p-4 transform group-hover:scale-105 transition-all duration-500">
-                                    <img
-                                        src="/images/badges/microsoft-certified-fundamentals-badge.svg"
-                                        alt="Microsoft Certified Fundamentals"
-                                        class="w-full h-full object-contain drop-shadow-xl"
-                                    />
-                                </div>
-                            </div>
-
-                            <!-- Certification Info -->
-                            <div class="text-center mb-6">
-                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                                    Microsoft Certified
-                                </h3>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">
-                                    <span class="font-semibold">Fundamentals</span> <span class="font-light">- Azure Fundamentals</span>
-                                </p>
-                            </div>
-
-                            <!-- Provider -->
-                            <div class="flex items-center justify-center mb-6">
-                                <div class="px-4 py-2 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-full border border-indigo-500/20">
-                                    <span class="text-sm font-medium text-indigo-600 dark:text-indigo-400">Microsoft Azure</span>
-                                </div>
-                            </div>
-
-                            <!-- Verify Button -->
-                            <a
-                                href="https://learn.microsoft.com/en-us/users/ajayupadhyay-007/credentials/74d000841b2147a6"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="flex items-center justify-center w-full px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-                            >
-                                <ShieldCheckIcon class="w-5 h-5 mr-2" />
-                                Verify Credential
-                            </a>
-                        </div>
-                    </div>
-                </div>
+            <!-- Empty State -->
+            <div v-if="certifications.length === 0" class="text-center py-12">
+                <AcademicCapIcon class="w-16 h-16 mx-auto text-gray-400 mb-4" />
+                <p class="text-gray-500 dark:text-gray-400">No certifications to display</p>
             </div>
         </div>
     </section>
@@ -197,6 +121,17 @@
 
 <script setup>
 import { AcademicCapIcon, ShieldCheckIcon } from '@heroicons/vue/24/outline';
+
+defineProps({
+    certifications: {
+        type: Array,
+        default: () => []
+    },
+    settings: {
+        type: Object,
+        default: () => ({})
+    }
+});
 </script>
 
 <style scoped>
