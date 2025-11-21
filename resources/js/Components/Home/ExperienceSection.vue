@@ -13,32 +13,46 @@
                 <div class="inline-block mb-4 animate-fade-in-up">
                     <span class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-blue-600/10 to-purple-600/10 border border-blue-600/20 text-sm font-medium text-blue-600 dark:text-blue-400">
                         <BriefcaseIcon class="w-4 h-4 mr-2" />
-                        Professional Journey
+                        {{ settings.experience_badge || 'Professional Journey' }}
                     </span>
                 </div>
                 <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 animate-fade-in-up" style="animation-delay: 0.1s">
-                    Work Experience
+                    {{ settings.experience_heading || 'Work Experience' }}
                 </h2>
                 <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto animate-fade-in-up" style="animation-delay: 0.2s">
-                    Building scalable cloud solutions and driving digital transformation
+                    {{ settings.experience_description || 'Building scalable cloud solutions and driving digital transformation' }}
                 </p>
             </div>
 
             <!-- Experience Container Cards -->
             <div class="max-w-4xl mx-auto space-y-6">
-                <!-- Jellyfish Technologies -->
                 <div
+                    v-for="(exp, index) in experiences"
+                    :key="exp.id"
                     class="group bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative overflow-hidden animate-fade-in-up"
-                    style="animation-delay: 0.3s"
+                    :style="{ animationDelay: `${0.3 + index * 0.1}s` }"
                 >
                     <!-- Gradient Overlay on Hover -->
-                    <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div
+                        class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        :style="{ background: `linear-gradient(135deg, ${exp.gradient_from}08, ${exp.gradient_to}08)` }"
+                    ></div>
 
                     <div class="relative z-10 flex gap-6">
                         <!-- Icon -->
                         <div class="flex-shrink-0">
-                            <div class="w-14 h-14 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-md transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                                <CloudIcon class="w-7 h-7 text-white" />
+                            <div
+                                class="w-14 h-14 rounded-xl flex items-center justify-center shadow-md transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300"
+                                :style="{ background: `linear-gradient(135deg, ${exp.gradient_from}, ${exp.gradient_to})` }"
+                            >
+                                <CloudIcon v-if="exp.icon_type === 'cloud'" class="w-7 h-7 text-white" />
+                                <CodeBracketIcon v-else-if="exp.icon_type === 'code'" class="w-7 h-7 text-white" />
+                                <ServerIcon v-else-if="exp.icon_type === 'server'" class="w-7 h-7 text-white" />
+                                <CircleStackIcon v-else-if="exp.icon_type === 'database'" class="w-7 h-7 text-white" />
+                                <CogIcon v-else-if="exp.icon_type === 'cog'" class="w-7 h-7 text-white" />
+                                <ChartBarIcon v-else-if="exp.icon_type === 'chart'" class="w-7 h-7 text-white" />
+                                <UsersIcon v-else-if="exp.icon_type === 'users'" class="w-7 h-7 text-white" />
+                                <BriefcaseIcon v-else class="w-7 h-7 text-white" />
                             </div>
                         </div>
 
@@ -48,115 +62,49 @@
                             <div class="flex flex-wrap items-start justify-between gap-3 mb-3">
                                 <div>
                                     <h3 class="text-xl font-bold text-gray-900 dark:text-white">
-                                        Cloud Engineer
+                                        {{ exp.job_title }}
                                     </h3>
-                                    <p class="text-base font-semibold text-blue-600 dark:text-blue-400">
-                                        Jellyfish Technologies
+                                    <p class="text-base font-semibold" :style="{ color: exp.accent_color || exp.gradient_from }">
+                                        {{ exp.company }}
                                     </p>
                                 </div>
-                                <span class="inline-flex items-center px-3 py-1 rounded-full bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20 text-xs font-medium text-green-600 dark:text-green-400">
+                                <span
+                                    v-if="exp.is_current"
+                                    class="inline-flex items-center px-3 py-1 rounded-full bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20 text-xs font-medium text-green-600 dark:text-green-400"
+                                >
                                     <span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
-                                    Current
+                                    {{ exp.duration_badge || 'Current' }}
+                                </span>
+                                <span
+                                    v-else-if="exp.duration_badge"
+                                    class="inline-flex items-center px-3 py-1 rounded-full border text-xs font-medium"
+                                    :style="{
+                                        background: `linear-gradient(135deg, ${exp.gradient_from}10, ${exp.gradient_to}10)`,
+                                        borderColor: `${exp.gradient_from}30`,
+                                        color: exp.gradient_from
+                                    }"
+                                >
+                                    {{ exp.duration_badge }}
                                 </span>
                             </div>
 
                             <!-- Meta Info -->
                             <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-gray-600 dark:text-gray-400 mb-4">
-                                <div class="flex items-center">
+                                <div v-if="exp.location" class="flex items-center">
                                     <MapPinIcon class="w-4 h-4 mr-1" />
-                                    Noida
+                                    {{ exp.location }}
                                 </div>
                                 <div class="flex items-center">
                                     <CalendarIcon class="w-4 h-4 mr-1" />
-                                    Jul 2024 - Present
+                                    {{ exp.start_date }} - {{ exp.end_date || 'Present' }}
                                 </div>
                             </div>
 
                             <!-- Achievements -->
-                            <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                                <li class="flex items-start">
-                                    <CheckCircleIcon class="w-4 h-4 mr-2 text-blue-600 flex-shrink-0 mt-0.5" />
-                                    <span>Orchestrated multi-cloud infrastructure across Azure, AWS, and DigitalOcean with 99.9% uptime</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <CheckCircleIcon class="w-4 h-4 mr-2 text-blue-600 flex-shrink-0 mt-0.5" />
-                                    <span>Architected CI/CD pipelines using GitHub Actions, Jenkins, and Azure DevOps</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <CheckCircleIcon class="w-4 h-4 mr-2 text-blue-600 flex-shrink-0 mt-0.5" />
-                                    <span>Optimized cloud storage costs by 30% through strategic management</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <CheckCircleIcon class="w-4 h-4 mr-2 text-blue-600 flex-shrink-0 mt-0.5" />
-                                    <span>Implemented comprehensive monitoring with Azure Monitor and CloudWatch</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 99Notes EdTech -->
-                <div
-                    class="group bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative overflow-hidden animate-fade-in-up"
-                    style="animation-delay: 0.4s"
-                >
-                    <!-- Gradient Overlay on Hover -->
-                    <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-                    <div class="relative z-10 flex gap-6">
-                        <!-- Icon -->
-                        <div class="flex-shrink-0">
-                            <div class="w-14 h-14 bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center shadow-md transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                                <CodeBracketIcon class="w-7 h-7 text-white" />
-                            </div>
-                        </div>
-
-                        <!-- Content -->
-                        <div class="flex-1 min-w-0">
-                            <!-- Header -->
-                            <div class="flex flex-wrap items-start justify-between gap-3 mb-3">
-                                <div>
-                                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
-                                        Full Stack Developer
-                                    </h3>
-                                    <p class="text-base font-semibold text-purple-600 dark:text-purple-400">
-                                        99Notes EdTech Pvt. Ltd.
-                                    </p>
-                                </div>
-                                <span class="inline-flex items-center px-3 py-1 rounded-full bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 text-xs font-medium text-purple-600 dark:text-purple-400">
-                                    1 year 8 months
-                                </span>
-                            </div>
-
-                            <!-- Meta Info -->
-                            <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-gray-600 dark:text-gray-400 mb-4">
-                                <div class="flex items-center">
-                                    <MapPinIcon class="w-4 h-4 mr-1" />
-                                    Delhi
-                                </div>
-                                <div class="flex items-center">
-                                    <CalendarIcon class="w-4 h-4 mr-1" />
-                                    Dec 2022 - Jul 2024
-                                </div>
-                            </div>
-
-                            <!-- Achievements -->
-                            <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                                <li class="flex items-start">
-                                    <CheckCircleIcon class="w-4 h-4 mr-2 text-purple-600 flex-shrink-0 mt-0.5" />
-                                    <span>Engineered responsive web applications using Laravel, PHP, and modern JavaScript frameworks</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <CheckCircleIcon class="w-4 h-4 mr-2 text-purple-600 flex-shrink-0 mt-0.5" />
-                                    <span>Managed 10+ production WordPress sites with 40% improved load times</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <CheckCircleIcon class="w-4 h-4 mr-2 text-purple-600 flex-shrink-0 mt-0.5" />
-                                    <span>Administered DigitalOcean cloud infrastructure ensuring high availability</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <CheckCircleIcon class="w-4 h-4 mr-2 text-purple-600 flex-shrink-0 mt-0.5" />
-                                    <span>Developed RESTful APIs supporting 5000+ concurrent users</span>
+                            <ul v-if="exp.achievements && exp.achievements.length" class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                                <li v-for="(achievement, i) in exp.achievements" :key="i" class="flex items-start">
+                                    <CheckCircleIcon class="w-4 h-4 mr-2 flex-shrink-0 mt-0.5" :style="{ color: exp.accent_color || exp.gradient_from }" />
+                                    <span>{{ achievement }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -164,11 +112,17 @@
                 </div>
             </div>
 
+            <!-- Empty State -->
+            <div v-if="experiences.length === 0" class="text-center py-12">
+                <BriefcaseIcon class="w-16 h-16 mx-auto text-gray-400 mb-4" />
+                <p class="text-gray-500 dark:text-gray-400">No experience entries to display</p>
+            </div>
+
             <!-- Total Experience Badge -->
-            <div class="mt-16 text-center animate-fade-in-up" style="animation-delay: 0.5s">
+            <div v-if="experiences.length > 0" class="mt-16 text-center animate-fade-in-up" style="animation-delay: 0.5s">
                 <div class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full text-white font-semibold shadow-lg">
                     <RocketLaunchIcon class="w-5 h-5 mr-2" />
-                    3+ Years of Professional Experience
+                    {{ settings.experience_total_text || '3+ Years of Professional Experience' }}
                 </div>
             </div>
         </div>
@@ -183,8 +137,24 @@ import {
     MapPinIcon,
     CalendarIcon,
     CheckCircleIcon,
-    RocketLaunchIcon
+    RocketLaunchIcon,
+    ServerIcon,
+    CircleStackIcon,
+    CogIcon,
+    ChartBarIcon,
+    UsersIcon
 } from '@heroicons/vue/24/outline';
+
+defineProps({
+    experiences: {
+        type: Array,
+        default: () => []
+    },
+    settings: {
+        type: Object,
+        default: () => ({})
+    }
+});
 </script>
 
 <style scoped>

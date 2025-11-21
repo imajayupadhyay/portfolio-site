@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\ProjectsController;
 use App\Http\Controllers\Admin\CertificationsController;
 use App\Http\Controllers\Admin\HeroController;
+use App\Http\Controllers\Admin\ExperienceController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -54,5 +55,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('/certifications/{certification}', [CertificationsController::class, 'destroy'])->name('certifications.destroy');
         Route::post('/certifications/upload-badge', [CertificationsController::class, 'uploadBadge'])->name('certifications.upload');
         Route::put('/certifications-settings', [CertificationsController::class, 'updateSettings'])->name('certifications.settings');
+
+        // Experience
+        Route::get('/experience', [ExperienceController::class, 'index'])->name('experience.index');
+        Route::post('/experience', [ExperienceController::class, 'store'])->name('experience.store');
+        Route::put('/experience/{experience}', [ExperienceController::class, 'update'])->name('experience.update');
+        Route::delete('/experience/{experience}', [ExperienceController::class, 'destroy'])->name('experience.destroy');
+        Route::put('/experience-settings', [ExperienceController::class, 'updateSettings'])->name('experience.settings');
     });
 });

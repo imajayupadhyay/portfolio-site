@@ -72,7 +72,8 @@ import {
     EnvelopeIcon,
     PhoneIcon,
     AcademicCapIcon,
-    SparklesIcon
+    SparklesIcon,
+    BriefcaseIcon
 } from '@heroicons/vue/24/outline';
 
 defineProps({
@@ -87,6 +88,7 @@ defineEmits(['toggle']);
 const menuItems = [
     { name: 'Dashboard', href: '/admin/dashboard', icon: HomeIcon },
     { name: 'Hero Section', href: '/admin/hero', icon: SparklesIcon },
+    { name: 'Experience', href: '/admin/experience', icon: BriefcaseIcon },
     { name: 'Projects', href: '/admin/projects', icon: FolderIcon },
     { name: 'Certifications', href: '/admin/certifications', icon: AcademicCapIcon },
     { name: 'Messages', href: '/admin/messages', icon: EnvelopeIcon },

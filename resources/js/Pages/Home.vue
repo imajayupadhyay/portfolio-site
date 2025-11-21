@@ -22,7 +22,7 @@
         <SkillsSection />
 
         <!-- Experience Section -->
-        <ExperienceSection />
+        <ExperienceSection :experiences="experiences" :settings="experienceSettings" />
 
         <!-- Education Section -->
         <EducationSection />
@@ -49,6 +49,14 @@ defineProps({
         default: () => ({})
     },
     heroSettings: {
+        type: Object,
+        default: () => ({})
+    },
+    experiences: {
+        type: Array,
+        default: () => []
+    },
+    experienceSettings: {
         type: Object,
         default: () => ({})
     }
