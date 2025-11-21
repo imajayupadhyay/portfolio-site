@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ProjectsController;
 use App\Http\Controllers\Admin\CertificationsController;
 use App\Http\Controllers\Admin\HeroController;
 use App\Http\Controllers\Admin\ExperienceController;
+use App\Http\Controllers\Admin\FooterController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -62,5 +63,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('/experience/{experience}', [ExperienceController::class, 'update'])->name('experience.update');
         Route::delete('/experience/{experience}', [ExperienceController::class, 'destroy'])->name('experience.destroy');
         Route::put('/experience-settings', [ExperienceController::class, 'updateSettings'])->name('experience.settings');
+
+        // Footer
+        Route::get('/footer', [FooterController::class, 'index'])->name('footer.index');
+        Route::put('/footer', [FooterController::class, 'update'])->name('footer.update');
     });
 });

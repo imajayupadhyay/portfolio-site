@@ -73,7 +73,8 @@ import {
     PhoneIcon,
     AcademicCapIcon,
     SparklesIcon,
-    BriefcaseIcon
+    BriefcaseIcon,
+    Square3Stack3DIcon
 } from '@heroicons/vue/24/outline';
 
 defineProps({
@@ -93,6 +94,7 @@ const menuItems = [
     { name: 'Certifications', href: '/admin/certifications', icon: AcademicCapIcon },
     { name: 'Messages', href: '/admin/messages', icon: EnvelopeIcon },
     { name: 'Contact Page', href: '/admin/contact', icon: PhoneIcon },
+    { name: 'Footer', href: '/admin/footer', icon: Square3Stack3DIcon },
 ];
 
 const isActive = (href) => {
