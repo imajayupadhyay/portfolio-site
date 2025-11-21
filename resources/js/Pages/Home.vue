@@ -13,7 +13,7 @@
         logo-initial="A"
     >
         <!-- Hero Section -->
-        <HeroSection />
+        <HeroSection :settings="heroSettings" />
 
         <!-- Certifications Section -->
         <CertificationsSection :certifications="certifications" :settings="certificationSettings" />
@@ -45,6 +45,10 @@ defineProps({
         default: () => []
     },
     certificationSettings: {
+        type: Object,
+        default: () => ({})
+    },
+    heroSettings: {
         type: Object,
         default: () => ({})
     }

@@ -16,13 +16,13 @@
                             class="text-lg sm:text-xl font-medium text-gray-600 dark:text-gray-400 animate-fade-in-up"
                             style="animation-delay: 0.1s"
                         >
-                            Hello, I'm
+                            {{ greeting }}
                         </h2>
                         <h1
                             class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight animate-fade-in-up"
                             style="animation-delay: 0.2s"
                         >
-                            <span class="block text-gray-900 dark:text-white">Ajay Upadhyay</span>
+                            <span class="block text-gray-900 dark:text-white">{{ name }}</span>
                             <span class="block mt-2 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
                                 {{ typedText }}<span class="animate-blink">|</span>
                             </span>
@@ -34,8 +34,7 @@
                         class="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto lg:mx-0 animate-fade-in-up leading-relaxed"
                         style="animation-delay: 0.3s"
                     >
-                        Orchestrating multi-cloud infrastructure with expertise in AWS, Azure, and DevOps.
-                        Passionate about automating workflows and building scalable solutions with 99.9% uptime.
+                        {{ description }}
                     </p>
 
                     <!-- Stats -->
@@ -44,16 +43,16 @@
                         style="animation-delay: 0.4s"
                     >
                         <div class="text-center lg:text-left">
-                            <div class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">3+</div>
-                            <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Years Exp.</div>
+                            <div class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{{ stat1Value }}</div>
+                            <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">{{ stat1Label }}</div>
                         </div>
                         <div class="text-center lg:text-left">
-                            <div class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">3</div>
-                            <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Certifications</div>
+                            <div class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{{ stat2Value }}</div>
+                            <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">{{ stat2Label }}</div>
                         </div>
                         <div class="text-center lg:text-left">
-                            <div class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">99.9%</div>
-                            <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Uptime</div>
+                            <div class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{{ stat3Value }}</div>
+                            <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">{{ stat3Label }}</div>
                         </div>
                     </div>
 
@@ -63,21 +62,21 @@
                         style="animation-delay: 0.5s"
                     >
                         <a
-                            href="/contact"
+                            :href="cta1Url"
                             class="group px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-medium text-sm shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 inline-flex items-center w-full sm:w-auto justify-center"
                         >
                             <EnvelopeIcon class="w-4 h-4 mr-2" />
-                            Get In Touch
+                            {{ cta1Text }}
                             <ArrowRightIcon class="w-3 h-3 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
                         </a>
                         <a
-                            href="/Ajay_Upadhyay_Resume.pdf"
+                            :href="resumeUrl"
                             download="Ajay_Upadhyay_Resume.pdf"
                             target="_blank"
                             class="group px-6 py-3 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-full font-medium text-sm shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 border-2 border-gray-200 dark:border-gray-700 inline-flex items-center w-full sm:w-auto justify-center"
                         >
                             <ArrowDownTrayIcon class="w-4 h-4 mr-2 group-hover:animate-bounce" />
-                            Download Resume
+                            {{ cta2Text }}
                         </a>
                     </div>
                 </div>
@@ -100,8 +99,8 @@
                                     <CloudIcon class="w-6 h-6 text-white" />
                                 </div>
                                 <div>
-                                    <div class="text-xs text-gray-500 dark:text-gray-400">Specialized in</div>
-                                    <div class="text-sm font-bold text-gray-900 dark:text-white">Cloud & DevOps</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">{{ badge1Subtitle }}</div>
+                                    <div class="text-sm font-bold text-gray-900 dark:text-white">{{ badge1Title }}</div>
                                 </div>
                             </div>
                         </div>
@@ -109,16 +108,16 @@
                         <!-- AWS Badge -->
                         <div class="absolute top-1/4 -left-8 z-30 bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-3 hover:scale-110 transition-all duration-300 animate-float-badge" style="--rotate-start: -6deg; animation-delay: 0.5s;">
                             <div class="text-center">
-                                <div class="text-2xl font-bold bg-gradient-to-r from-orange-500 to-yellow-500 bg-clip-text text-transparent">AWS</div>
-                                <div class="text-xs text-gray-600 dark:text-gray-400">Certified</div>
+                                <div class="text-2xl font-bold bg-gradient-to-r from-orange-500 to-yellow-500 bg-clip-text text-transparent">{{ badge2Title }}</div>
+                                <div class="text-xs text-gray-600 dark:text-gray-400">{{ badge2Subtitle }}</div>
                             </div>
                         </div>
 
                         <!-- Azure Badge -->
                         <div class="absolute bottom-1/4 -right-8 z-30 bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-3 hover:scale-110 transition-all duration-300 animate-float-badge" style="--rotate-start: 6deg; animation-delay: 1s;">
                             <div class="text-center">
-                                <div class="text-2xl font-bold bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">Azure</div>
-                                <div class="text-xs text-gray-600 dark:text-gray-400">Certified</div>
+                                <div class="text-2xl font-bold bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">{{ badge3Title }}</div>
+                                <div class="text-xs text-gray-600 dark:text-gray-400">{{ badge3Subtitle }}</div>
                             </div>
                         </div>
 
@@ -131,8 +130,8 @@
                             <div class="relative bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 rounded-3xl overflow-hidden transform -rotate-3 hover:rotate-0 transition-transform duration-500 shadow-2xl">
                                 <div class="aspect-square flex items-center justify-center">
                                     <img
-                                        src="/images/profile.png"
-                                        alt="Ajay Upadhyay - DevOps & Cloud Engineer"
+                                        :src="profileImage"
+                                        :alt="name + ' - DevOps & Cloud Engineer'"
                                         class="w-full h-full object-cover"
                                     />
                                 </div>
@@ -177,7 +176,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, computed } from 'vue';
 import {
     EnvelopeIcon,
     ArrowRightIcon,
@@ -186,17 +185,47 @@ import {
     ChevronDownIcon
 } from '@heroicons/vue/24/outline';
 
+const props = defineProps({
+    settings: {
+        type: Object,
+        default: () => ({})
+    }
+});
+
+// Computed settings with defaults
+const greeting = computed(() => props.settings?.hero_greeting || "Hello, I'm");
+const name = computed(() => props.settings?.hero_name || 'Ajay Upadhyay');
+const description = computed(() => props.settings?.hero_description || 'Orchestrating multi-cloud infrastructure with expertise in AWS, Azure, and DevOps. Passionate about automating workflows and building scalable solutions with 99.9% uptime.');
+const stat1Value = computed(() => props.settings?.hero_stat1_value || '3+');
+const stat1Label = computed(() => props.settings?.hero_stat1_label || 'Years Exp.');
+const stat2Value = computed(() => props.settings?.hero_stat2_value || '3');
+const stat2Label = computed(() => props.settings?.hero_stat2_label || 'Certifications');
+const stat3Value = computed(() => props.settings?.hero_stat3_value || '99.9%');
+const stat3Label = computed(() => props.settings?.hero_stat3_label || 'Uptime');
+const cta1Text = computed(() => props.settings?.hero_cta1_text || 'Get In Touch');
+const cta1Url = computed(() => props.settings?.hero_cta1_url || '/contact');
+const cta2Text = computed(() => props.settings?.hero_cta2_text || 'Download Resume');
+const resumeUrl = computed(() => props.settings?.hero_resume || '/Ajay_Upadhyay_Resume.pdf');
+const profileImage = computed(() => props.settings?.hero_profile_image || '/images/profile.png');
+const badge1Title = computed(() => props.settings?.hero_badge1_title || 'Cloud & DevOps');
+const badge1Subtitle = computed(() => props.settings?.hero_badge1_subtitle || 'Specialized in');
+const badge2Title = computed(() => props.settings?.hero_badge2_title || 'AWS');
+const badge2Subtitle = computed(() => props.settings?.hero_badge2_subtitle || 'Certified');
+const badge3Title = computed(() => props.settings?.hero_badge3_title || 'Azure');
+const badge3Subtitle = computed(() => props.settings?.hero_badge3_subtitle || 'Certified');
+
+// Parse roles from JSON or use defaults
+const roles = computed(() => {
+    try {
+        const parsed = JSON.parse(props.settings?.hero_roles || '[]');
+        return parsed.length ? parsed : ['Software Engineer', 'Cloud Engineer', 'DevOps Engineer', 'AWS Solutions Architect', 'Azure Administrator'];
+    } catch {
+        return ['Software Engineer', 'Cloud Engineer', 'DevOps Engineer', 'AWS Solutions Architect', 'Azure Administrator'];
+    }
+});
+
 // State
 const typedText = ref('');
-
-// Roles to cycle through
-const roles = [
-    'Software Engineer',
-    'Cloud Engineer',
-    'DevOps Engineer',
-    'AWS Solutions Architect',
-    'Azure Administrator'
-];
 
 let currentRoleIndex = 0;
 let currentCharIndex = 0;
@@ -205,7 +234,7 @@ let typingTimeout = null;
 
 // Typewriter effect
 const typeWriter = () => {
-    const currentRole = roles[currentRoleIndex];
+    const currentRole = roles.value[currentRoleIndex];
 
     if (!isDeleting) {
         // Typing
@@ -229,7 +258,7 @@ const typeWriter = () => {
         } else {
             // Move to next role
             isDeleting = false;
-            currentRoleIndex = (currentRoleIndex + 1) % roles.length;
+            currentRoleIndex = (currentRoleIndex + 1) % roles.value.length;
             typingTimeout = setTimeout(typeWriter, 500); // Pause before typing next role
         }
     }

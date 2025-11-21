@@ -14,10 +14,13 @@ Route::get('/', function () {
         'certifications_description',
     ])->pluck('value', 'key');
 
+    $heroSettings = Setting::where('key', 'like', 'hero_%')->pluck('value', 'key');
+
     return Inertia::render('Home', [
         'laravelVersion' => app()->version(),
         'certifications' => Certification::active()->orderBy('order')->get(),
         'certificationSettings' => $certSettings,
+        'heroSettings' => $heroSettings,
     ]);
 });
 

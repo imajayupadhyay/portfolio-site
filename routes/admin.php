@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\MessagesController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\ProjectsController;
 use App\Http\Controllers\Admin\CertificationsController;
+use App\Http\Controllers\Admin\HeroController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -18,6 +19,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+        // Hero Section
+        Route::get('/hero', [HeroController::class, 'index'])->name('hero.index');
+        Route::put('/hero', [HeroController::class, 'update'])->name('hero.update');
+        Route::post('/hero/upload-image', [HeroController::class, 'uploadImage'])->name('hero.upload-image');
+        Route::post('/hero/upload-resume', [HeroController::class, 'uploadResume'])->name('hero.upload-resume');
 
         // Messages
         Route::get('/messages', [MessagesController::class, 'index'])->name('messages.index');
