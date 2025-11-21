@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Models\Setting;
+use App\Models\SocialLink;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -10,7 +12,13 @@ class ContactController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Contact');
+        $settings = Setting::where('group', 'contact')->pluck('value', 'key');
+        $socialLinks = SocialLink::active()->get();
+
+        return Inertia::render('Contact', [
+            'settings' => $settings,
+            'socialLinks' => $socialLinks,
+        ]);
     }
 
     public function store(Request $request)

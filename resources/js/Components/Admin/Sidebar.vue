@@ -70,7 +70,7 @@ import {
     HomeIcon,
     FolderIcon,
     EnvelopeIcon,
-    Cog6ToothIcon,
+    PhoneIcon,
     UserIcon
 } from '@heroicons/vue/24/outline';
 
@@ -88,7 +88,7 @@ const menuItems = [
     { name: 'Projects', href: '/admin/projects', icon: FolderIcon },
     { name: 'Messages', href: '/admin/messages', icon: EnvelopeIcon },
     { name: 'Profile', href: '/admin/profile', icon: UserIcon },
-    { name: 'Settings', href: '/admin/settings', icon: Cog6ToothIcon },
+    { name: 'Contact Page', href: '/admin/contact', icon: PhoneIcon },
 ];
 
 const isActive = (href) => {
