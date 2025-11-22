@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Contact;
 use App\Models\Setting;
 use App\Models\SocialLink;
+use App\Mail\ContactFormSubmittedAdmin;
+use App\Mail\ContactFormSubmittedUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class ContactController extends Controller
@@ -31,7 +34,18 @@ class ContactController extends Controller
             'message' => 'required|string|max:5000',
         ]);
 
-        Contact::create($validated);
+        $contact = Contact::create($validated);
+
+        try {
+            // Send email to admin
+            Mail::to('ajayupadhyay030@gmail.com')->send(new ContactFormSubmittedAdmin($contact));
+
+            // Send confirmation email to user
+            Mail::to($contact->email)->send(new ContactFormSubmittedUser($contact));
+        } catch (\Exception $e) {
+            // Log the error but don't fail the request
+            \Log::error('Failed to send contact form emails: ' . $e->getMessage());
+        }
 
         return redirect()->back()->with('success', 'Thank you for contacting us! We will get back to you soon.');
     }
