@@ -1,2 +1,10 @@
 User-agent: *
-Disallow:
+Disallow: /admin
+Disallow: /admin/
+Disallow: /admin/*
+
+# Allow all other pages
+Allow: /
+
+# Sitemap (optional - update with your actual sitemap URL if you have one)
+# Sitemap: https://yoursite.com/sitemap.xml
