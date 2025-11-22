@@ -19,7 +19,7 @@
         <CertificationsSection :certifications="certifications" :settings="certificationSettings" />
 
         <!-- Skills Section -->
-        <SkillsSection />
+        <SkillsSection :categories="skillCategories" :settings="formattedSkillsSettings" />
 
         <!-- Experience Section -->
         <ExperienceSection :experiences="experiences" :settings="experienceSettings" />
@@ -30,6 +30,7 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
 import { Head } from '@inertiajs/vue3';
 import PortfolioLayout from '../Layouts/PortfolioLayout.vue';
 import HeroSection from '../Components/Home/HeroSection.vue';
@@ -38,7 +39,7 @@ import SkillsSection from '../Components/Home/SkillsSection.vue';
 import ExperienceSection from '../Components/Home/ExperienceSection.vue';
 import EducationSection from '../Components/Home/EducationSection.vue';
 
-defineProps({
+const props = defineProps({
     laravelVersion: String,
     certifications: {
         type: Array,
@@ -59,6 +60,20 @@ defineProps({
     experienceSettings: {
         type: Object,
         default: () => ({})
+    },
+    skillCategories: {
+        type: Array,
+        default: () => []
+    },
+    skillsSettings: {
+        type: Object,
+        default: () => ({})
     }
 });
+
+const formattedSkillsSettings = computed(() => ({
+    badge: props.skillsSettings.skills_badge || 'My Tech Stack',
+    heading: props.skillsSettings.skills_heading || 'Skills & Technologies',
+    description: props.skillsSettings.skills_description || 'Expertise across cloud platforms, DevOps tools, and modern development technologies'
+}));
 </script>

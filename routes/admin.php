@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CertificationsController;
 use App\Http\Controllers\Admin\HeroController;
 use App\Http\Controllers\Admin\ExperienceController;
 use App\Http\Controllers\Admin\FooterController;
+use App\Http\Controllers\Admin\SkillsController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -67,5 +68,19 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Footer
         Route::get('/footer', [FooterController::class, 'index'])->name('footer.index');
         Route::put('/footer', [FooterController::class, 'update'])->name('footer.update');
+
+        // Skills
+        Route::get('/skills', [SkillsController::class, 'index'])->name('skills.index');
+        Route::put('/skills-settings', [SkillsController::class, 'updateSettings'])->name('skills.settings');
+
+        // Skill Categories
+        Route::post('/skills/categories', [SkillsController::class, 'storeCategory'])->name('skills.categories.store');
+        Route::put('/skills/categories/{category}', [SkillsController::class, 'updateCategory'])->name('skills.categories.update');
+        Route::delete('/skills/categories/{category}', [SkillsController::class, 'destroyCategory'])->name('skills.categories.destroy');
+
+        // Skills
+        Route::post('/skills/items', [SkillsController::class, 'storeSkill'])->name('skills.items.store');
+        Route::put('/skills/items/{skill}', [SkillsController::class, 'updateSkill'])->name('skills.items.update');
+        Route::delete('/skills/items/{skill}', [SkillsController::class, 'destroySkill'])->name('skills.items.destroy');
     });
 });
