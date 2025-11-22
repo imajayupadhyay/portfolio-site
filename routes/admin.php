@@ -88,6 +88,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/skills/categories', [SkillsController::class, 'storeCategory'])->name('skills.categories.store');
         Route::put('/skills/categories/{category}', [SkillsController::class, 'updateCategory'])->name('skills.categories.update');
         Route::delete('/skills/categories/{category}', [SkillsController::class, 'destroyCategory'])->name('skills.categories.destroy');
+        Route::post('/skills/categories/{category}/reorder', [SkillsController::class, 'reorderCategory'])->name('skills.categories.reorder');
 
         // Skills
         Route::post('/skills/items', [SkillsController::class, 'storeSkill'])->name('skills.items.store');

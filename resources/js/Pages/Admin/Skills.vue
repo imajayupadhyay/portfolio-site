@@ -62,6 +62,22 @@
                                 <span class="text-sm text-gray-500">{{ category.skills.length }} skills</span>
                             </div>
                             <div class="flex items-center gap-2">
+                                <button
+                                    @click="moveCategoryUp(category)"
+                                    :disabled="isFirstCategory(category)"
+                                    :class="['p-2 rounded-lg transition-colors', isFirstCategory(category) ? 'text-gray-300 dark:text-gray-600 cursor-not-allowed' : 'text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700']"
+                                    title="Move up"
+                                >
+                                    <ChevronUpIcon class="w-5 h-5" />
+                                </button>
+                                <button
+                                    @click="moveCategoryDown(category)"
+                                    :disabled="isLastCategory(category)"
+                                    :class="['p-2 rounded-lg transition-colors', isLastCategory(category) ? 'text-gray-300 dark:text-gray-600 cursor-not-allowed' : 'text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700']"
+                                    title="Move down"
+                                >
+                                    <ChevronDownIcon class="w-5 h-5" />
+                                </button>
                                 <button @click="openSkillModal(null, category.id)" class="p-2 text-green-600 hover:bg-green-100 dark:hover:bg-green-900/50 rounded-lg transition-colors" title="Add Skill">
                                     <PlusIcon class="w-5 h-5" />
                                 </button>
@@ -235,7 +251,7 @@
 import { ref, reactive } from 'vue';
 import { Head, router } from '@inertiajs/vue3';
 import AdminLayout from '../../Layouts/AdminLayout.vue';
-import { PlusIcon, PencilIcon, TrashIcon, ChevronDownIcon } from '@heroicons/vue/24/outline';
+import { PlusIcon, PencilIcon, TrashIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/vue/24/outline';
 
 const props = defineProps({
     user: Object,
@@ -384,5 +400,29 @@ const getGridClass = (cols) => {
         6: 'lg:grid-cols-6',
     };
     return gridClasses[cols] || 'lg:grid-cols-5';
+};
+
+const moveCategoryUp = (category) => {
+    router.post(`/admin/skills/categories/${category.id}/reorder`, {
+        direction: 'up',
+    }, {
+        preserveScroll: true,
+    });
+};
+
+const moveCategoryDown = (category) => {
+    router.post(`/admin/skills/categories/${category.id}/reorder`, {
+        direction: 'down',
+    }, {
+        preserveScroll: true,
+    });
+};
+
+const isFirstCategory = (category) => {
+    return props.categories.indexOf(category) === 0;
+};
+
+const isLastCategory = (category) => {
+    return props.categories.indexOf(category) === props.categories.length - 1;
 };
 </script>

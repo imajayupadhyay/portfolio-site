@@ -121,4 +121,43 @@ class SkillsController extends Controller
         $skill->delete();
         return back()->with('success', 'Skill deleted successfully.');
     }
+
+    // Category Reorder
+    public function reorderCategory(Request $request, SkillCategory $category)
+    {
+        $request->validate([
+            'direction' => 'required|in:up,down',
+        ]);
+
+        $direction = $request->direction;
+        $currentOrder = $category->order;
+
+        if ($direction === 'up') {
+            // Find the category with the previous order
+            $previous = SkillCategory::where('order', '<', $currentOrder)
+                ->orderBy('order', 'desc')
+                ->first();
+
+            if ($previous) {
+                // Swap orders
+                $previousOrder = $previous->order;
+                $previous->update(['order' => $currentOrder]);
+                $category->update(['order' => $previousOrder]);
+            }
+        } else {
+            // Find the category with the next order
+            $next = SkillCategory::where('order', '>', $currentOrder)
+                ->orderBy('order', 'asc')
+                ->first();
+
+            if ($next) {
+                // Swap orders
+                $nextOrder = $next->order;
+                $next->update(['order' => $currentOrder]);
+                $category->update(['order' => $nextOrder]);
+            }
+        }
+
+        return back()->with('success', 'Category order updated successfully.');
+    }
 }
