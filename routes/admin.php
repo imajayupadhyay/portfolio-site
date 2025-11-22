@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\HeroController;
 use App\Http\Controllers\Admin\ExperienceController;
 use App\Http\Controllers\Admin\FooterController;
 use App\Http\Controllers\Admin\SkillsController;
+use App\Http\Controllers\Admin\BlogController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -85,5 +86,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/skills/items', [SkillsController::class, 'storeSkill'])->name('skills.items.store');
         Route::put('/skills/items/{skill}', [SkillsController::class, 'updateSkill'])->name('skills.items.update');
         Route::delete('/skills/items/{skill}', [SkillsController::class, 'destroySkill'])->name('skills.items.destroy');
+
+        // Blog
+        Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+        Route::post('/blog', [BlogController::class, 'store'])->name('blog.store');
+        Route::put('/blog/{post}', [BlogController::class, 'update'])->name('blog.update');
+        Route::delete('/blog/{post}', [BlogController::class, 'destroy'])->name('blog.destroy');
+
+        // Blog Categories
+        Route::post('/blog/categories', [BlogController::class, 'storeCategory'])->name('blog.categories.store');
+        Route::put('/blog/categories/{category}', [BlogController::class, 'updateCategory'])->name('blog.categories.update');
+        Route::delete('/blog/categories/{category}', [BlogController::class, 'destroyCategory'])->name('blog.categories.destroy');
     });
 });

@@ -48,3 +48,33 @@ Route::get('/projects', [ProjectsController::class, 'index'])->name('projects');
 
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+Route::get('/blog', function () {
+    $footerSettings = Setting::where('key', 'like', 'footer_%')->pluck('value', 'key');
+    $footerSocialLinks = \App\Models\SocialLink::where('context', 'footer')
+        ->where('is_active', true)
+        ->orderBy('order')
+        ->get();
+
+    // Demo data (will be replaced with database query)
+    return Inertia::render('Blog/Index', [
+        'posts' => [],
+        'footerSettings' => $footerSettings,
+        'footerSocialLinks' => $footerSocialLinks,
+    ]);
+})->name('blog');
+
+Route::get('/blog/{slug}', function ($slug) {
+    $footerSettings = Setting::where('key', 'like', 'footer_%')->pluck('value', 'key');
+    $footerSocialLinks = \App\Models\SocialLink::where('context', 'footer')
+        ->where('is_active', true)
+        ->orderBy('order')
+        ->get();
+
+    // Demo data (will be replaced with database query)
+    return Inertia::render('Blog/Show', [
+        'post' => [],
+        'footerSettings' => $footerSettings,
+        'footerSocialLinks' => $footerSocialLinks,
+    ]);
+})->name('blog.show');

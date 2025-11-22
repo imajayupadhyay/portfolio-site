@@ -356,12 +356,12 @@ import {
     XMarkIcon,
     HomeIcon,
     BriefcaseIcon,
-    CodeBracketIcon,
     EnvelopeIcon,
     PhoneIcon,
     ArrowRightIcon,
     SunIcon,
-    MoonIcon
+    MoonIcon,
+    BookOpenIcon
 } from '@heroicons/vue/24/outline';
 import ContactFormModal from './ContactFormModal.vue';
 
@@ -380,8 +380,8 @@ const props = defineProps({
 // Navigation items
 const navItems = [
     { name: 'Home', href: '/', icon: HomeIcon },
-    { name: 'Skills', href: '#skills', icon: CodeBracketIcon },
     { name: 'Projects', href: '/projects', icon: BriefcaseIcon },
+    { name: 'Blog', href: '/blog', icon: BookOpenIcon },
     { name: 'Contact', href: '/contact', icon: EnvelopeIcon },
 ];
 

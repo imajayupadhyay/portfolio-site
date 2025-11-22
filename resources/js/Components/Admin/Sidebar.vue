@@ -75,7 +75,8 @@ import {
     SparklesIcon,
     BriefcaseIcon,
     Square3Stack3DIcon,
-    CodeBracketIcon
+    CodeBracketIcon,
+    BookOpenIcon
 } from '@heroicons/vue/24/outline';
 
 defineProps({
@@ -94,6 +95,7 @@ const menuItems = [
     { name: 'Projects', href: '/admin/projects', icon: FolderIcon },
     { name: 'Certifications', href: '/admin/certifications', icon: AcademicCapIcon },
     { name: 'Skills', href: '/admin/skills', icon: CodeBracketIcon },
+    { name: 'Blog', href: '/admin/blog', icon: BookOpenIcon },
     { name: 'Messages', href: '/admin/messages', icon: EnvelopeIcon },
     { name: 'Contact Page', href: '/admin/contact', icon: PhoneIcon },
     { name: 'Footer', href: '/admin/footer', icon: Square3Stack3DIcon },
