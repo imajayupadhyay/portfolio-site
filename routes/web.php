@@ -6,6 +6,8 @@ use App\Models\Certification;
 use App\Models\Experience;
 use App\Models\Setting;
 use App\Models\SkillCategory;
+use App\Models\BlogPost;
+use App\Models\BlogCategory;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -56,9 +58,29 @@ Route::get('/blog', function () {
         ->orderBy('order')
         ->get();
 
-    // Demo data (will be replaced with database query)
+    // Get all active and published blog posts with their categories
+    $posts = BlogPost::with('category')
+        ->active()
+        ->published()
+        ->orderBy('order')
+        ->orderBy('published_at', 'desc')
+        ->get();
+
+    // Get the featured post (first featured and published post)
+    $featuredPost = BlogPost::with('category')
+        ->active()
+        ->published()
+        ->featured()
+        ->orderBy('published_at', 'desc')
+        ->first();
+
+    // Get active categories for the filter
+    $categories = BlogCategory::active()->get();
+
     return Inertia::render('Blog/Index', [
-        'posts' => [],
+        'posts' => $posts,
+        'featuredPost' => $featuredPost,
+        'categories' => $categories,
         'footerSettings' => $footerSettings,
         'footerSocialLinks' => $footerSocialLinks,
     ]);
@@ -71,9 +93,29 @@ Route::get('/blog/{slug}', function ($slug) {
         ->orderBy('order')
         ->get();
 
-    // Demo data (will be replaced with database query)
+    // Get the blog post by slug with its category
+    $post = BlogPost::with('category')
+        ->where('slug', $slug)
+        ->active()
+        ->published()
+        ->firstOrFail();
+
+    // Increment view count
+    $post->incrementViews();
+
+    // Get related posts from the same category (excluding the current post)
+    $relatedPosts = BlogPost::with('category')
+        ->where('blog_category_id', $post->blog_category_id)
+        ->where('id', '!=', $post->id)
+        ->active()
+        ->published()
+        ->orderBy('published_at', 'desc')
+        ->limit(3)
+        ->get();
+
     return Inertia::render('Blog/Show', [
-        'post' => [],
+        'post' => $post,
+        'relatedPosts' => $relatedPosts,
         'footerSettings' => $footerSettings,
         'footerSocialLinks' => $footerSocialLinks,
     ]);

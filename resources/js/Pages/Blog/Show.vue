@@ -28,7 +28,7 @@
                 <!-- Category Badge -->
                 <div class="mb-6 animate-fade-in-up" style="animation-delay: 0.1s">
                     <span class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-blue-600/10 to-purple-600/10 border border-blue-600/20 text-sm font-medium text-blue-600 dark:text-blue-400">
-                        {{ post.category }}
+                        {{ post.category.name }}
                     </span>
                 </div>
 
@@ -50,18 +50,18 @@
                     </div>
                     <div class="flex items-center gap-1">
                         <CalendarIcon class="w-5 h-5" />
-                        <span class="text-sm">{{ post.date }}</span>
+                        <span class="text-sm">{{ formatDate(post.published_at) }}</span>
                     </div>
                     <div class="flex items-center gap-1">
                         <ClockIcon class="w-5 h-5" />
-                        <span class="text-sm">{{ post.readTime }} min read</span>
+                        <span class="text-sm">{{ post.read_time }} min read</span>
                     </div>
                 </div>
 
                 <!-- Featured Image -->
                 <div class="relative rounded-2xl overflow-hidden shadow-2xl mb-12 animate-fade-in-up" style="animation-delay: 0.4s">
                     <img
-                        :src="post.image"
+                        :src="post.featured_image"
                         :alt="post.title"
                         class="w-full h-64 sm:h-96 object-cover"
                     />
@@ -76,74 +76,14 @@
                 <div class="grid lg:grid-cols-12 gap-12">
                     <!-- Main Content -->
                     <article class="lg:col-span-8">
-                        <div class="prose prose-lg prose-gray dark:prose-invert max-w-none">
+                        <div class="max-w-none">
                             <!-- Article Introduction -->
                             <p class="text-xl text-gray-600 dark:text-gray-400 leading-relaxed mb-8">
                                 {{ post.excerpt }}
                             </p>
 
-                            <!-- Demo Content (will be replaced with real content from database) -->
-                            <h2>Introduction</h2>
-                            <p>
-                                In today's rapidly evolving tech landscape, building scalable and maintainable infrastructure is crucial for any organization.
-                                This comprehensive guide will walk you through the process of setting up a robust cloud infrastructure using industry-standard tools and best practices.
-                            </p>
-
-                            <h2>Prerequisites</h2>
-                            <p>Before we dive in, make sure you have the following:</p>
-                            <ul>
-                                <li>Basic understanding of cloud computing concepts</li>
-                                <li>An AWS account with appropriate permissions</li>
-                                <li>Terraform installed on your local machine (version 1.0 or higher)</li>
-                                <li>AWS CLI configured with your credentials</li>
-                            </ul>
-
-                            <h2>Setting Up Your Environment</h2>
-                            <p>
-                                First, let's set up our development environment. We'll need to configure our AWS credentials and initialize our Terraform workspace.
-                            </p>
-
-                            <div class="not-prose bg-gray-900 rounded-xl p-6 my-6">
-                                <pre class="text-sm text-gray-100 overflow-x-auto"><code>aws configure
-terraform init
-terraform plan</code></pre>
-                            </div>
-
-                            <h2>Infrastructure Architecture</h2>
-                            <p>
-                                Our infrastructure will consist of multiple components working together to provide a highly available and scalable solution.
-                                Here's what we'll be building:
-                            </p>
-                            <ul>
-                                <li><strong>VPC Configuration:</strong> Isolated network environment with public and private subnets</li>
-                                <li><strong>Auto Scaling Groups:</strong> Dynamic scaling based on demand</li>
-                                <li><strong>Load Balancers:</strong> Distribute traffic across multiple instances</li>
-                                <li><strong>RDS Database:</strong> Managed database with automatic backups</li>
-                                <li><strong>S3 Buckets:</strong> Object storage for static assets</li>
-                            </ul>
-
-                            <h2>Best Practices</h2>
-                            <p>When working with infrastructure as code, keep these best practices in mind:</p>
-                            <ol>
-                                <li>Always use version control for your Terraform configurations</li>
-                                <li>Implement state locking to prevent concurrent modifications</li>
-                                <li>Use modules to organize and reuse code</li>
-                                <li>Tag all resources for better organization and cost tracking</li>
-                                <li>Implement proper security groups and network ACLs</li>
-                            </ol>
-
-                            <h2>Monitoring and Maintenance</h2>
-                            <p>
-                                Once your infrastructure is deployed, it's essential to monitor its health and performance.
-                                Set up CloudWatch alarms, enable logging, and establish a regular maintenance schedule.
-                            </p>
-
-                            <h2>Conclusion</h2>
-                            <p>
-                                Building scalable cloud infrastructure requires careful planning and implementation.
-                                By following the practices outlined in this guide, you'll be well on your way to creating a robust,
-                                maintainable infrastructure that can grow with your organization's needs.
-                            </p>
+                            <!-- Article Content from Database -->
+                            <div class="blog-content" v-html="post.content"></div>
                         </div>
 
                         <!-- Tags -->
@@ -243,13 +183,13 @@ terraform plan</code></pre>
                     >
                         <div class="relative h-48 overflow-hidden">
                             <img
-                                :src="relatedPost.image"
+                                :src="relatedPost.featured_image"
                                 :alt="relatedPost.title"
                                 class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                             />
                             <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                             <span class="absolute bottom-4 left-4 px-3 py-1 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm text-gray-900 dark:text-white text-xs font-medium rounded-full">
-                                {{ relatedPost.category }}
+                                {{ relatedPost.category.name }}
                             </span>
                         </div>
 
@@ -261,9 +201,9 @@ terraform plan</code></pre>
                                 {{ relatedPost.excerpt }}
                             </p>
                             <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
-                                <span class="text-xs text-gray-500 dark:text-gray-400">{{ relatedPost.date }}</span>
+                                <span class="text-xs text-gray-500 dark:text-gray-400">{{ formatDate(relatedPost.published_at) }}</span>
                                 <a
-                                    :href="relatedPost.slug"
+                                    :href="`/blog/${relatedPost.slug}`"
                                     class="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 font-medium text-sm hover:gap-3 transition-all"
                                 >
                                     Read More
@@ -293,53 +233,22 @@ const props = defineProps({
     post: {
         type: Object,
         required: true
+    },
+    relatedPosts: {
+        type: Array,
+        default: () => []
     }
 });
 
-// Demo data for the current post (will be replaced with real data from backend)
-const post = {
-    id: 1,
-    title: 'Building Scalable Cloud Infrastructure with AWS and Terraform',
-    excerpt: 'Learn how to design and implement a highly scalable, fault-tolerant infrastructure on AWS using Infrastructure as Code principles with Terraform.',
-    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&h=600&fit=crop',
-    category: 'Cloud Computing',
-    author: 'Ajay Upadhyay',
-    date: 'Nov 20, 2025',
-    readTime: 8,
-    tags: ['AWS', 'Terraform', 'Infrastructure', 'DevOps', 'Cloud'],
-    slug: '/blog/scalable-cloud-infrastructure-aws-terraform'
+// Format date helper
+const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+    });
 };
-
-// Demo related posts (will be replaced with real data from backend)
-const relatedPosts = [
-    {
-        id: 2,
-        title: 'Mastering Kubernetes Deployments: Best Practices',
-        excerpt: 'Discover essential best practices for deploying and managing containerized applications in production Kubernetes clusters.',
-        image: 'https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=800&h=600&fit=crop',
-        category: 'DevOps',
-        date: 'Nov 18, 2025',
-        slug: '/blog/kubernetes-deployment-best-practices'
-    },
-    {
-        id: 3,
-        title: 'CI/CD Pipeline Automation with GitHub Actions',
-        excerpt: 'Step-by-step guide to implementing automated testing and deployment workflows using GitHub Actions.',
-        image: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=800&h=600&fit=crop',
-        category: 'DevOps',
-        date: 'Nov 15, 2025',
-        slug: '/blog/cicd-github-actions'
-    },
-    {
-        id: 4,
-        title: 'Azure DevOps vs GitHub Actions: A Complete Comparison',
-        excerpt: 'An in-depth comparison of two leading CI/CD platforms to help you choose the right tool for your projects.',
-        image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=600&fit=crop',
-        category: 'Cloud Computing',
-        date: 'Nov 12, 2025',
-        slug: '/blog/azure-devops-vs-github-actions'
-    }
-];
 </script>
 
 <style scoped>
@@ -359,58 +268,5 @@ const relatedPosts = [
     opacity: 0;
 }
 
-/* Prose Styles for Article Content */
-.prose {
-    color: #374151;
-}
-
-.dark .prose {
-    color: #d1d5db;
-}
-
-.prose h2 {
-    font-size: 1.875rem;
-    font-weight: 700;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    color: #111827;
-}
-
-.dark .prose h2 {
-    color: #f9fafb;
-}
-
-.prose p {
-    margin-bottom: 1.25rem;
-    line-height: 1.75;
-}
-
-.prose ul, .prose ol {
-    margin-bottom: 1.25rem;
-    padding-left: 1.5rem;
-}
-
-.prose li {
-    margin-bottom: 0.5rem;
-}
-
-.prose strong {
-    font-weight: 600;
-    color: #111827;
-}
-
-.dark .prose strong {
-    color: #f9fafb;
-}
-
-.prose code {
-    background-color: #f3f4f6;
-    padding: 0.125rem 0.375rem;
-    border-radius: 0.25rem;
-    font-size: 0.875rem;
-}
-
-.dark .prose code {
-    background-color: #374151;
-}
+/* Blog content styles are now in resources/css/blog-content.css */
 </style>

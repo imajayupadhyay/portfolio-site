@@ -474,17 +474,74 @@
                                         </div>
                                     </div>
 
-                                    <!-- Featured Image URL -->
+                                    <!-- Featured Image -->
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                            Featured Image URL
+                                            Featured Image
                                         </label>
-                                        <input
-                                            v-model="form.featured_image"
-                                            type="text"
-                                            class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
-                                            placeholder="https://example.com/image.jpg"
-                                        />
+
+                                        <!-- Image Preview -->
+                                        <div v-if="imagePreview || form.featured_image" class="mb-4">
+                                            <img
+                                                :src="imagePreview || form.featured_image"
+                                                alt="Preview"
+                                                class="w-full h-48 object-cover rounded-lg border border-gray-300 dark:border-gray-600"
+                                            />
+                                        </div>
+
+                                        <!-- Upload Tabs -->
+                                        <div class="flex gap-2 mb-3">
+                                            <button
+                                                @click="uploadMethod = 'file'"
+                                                type="button"
+                                                :class="[
+                                                    'px-4 py-2 rounded-lg text-sm font-medium transition-colors',
+                                                    uploadMethod === 'file'
+                                                        ? 'bg-blue-600 text-white'
+                                                        : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
+                                                ]"
+                                            >
+                                                Upload File
+                                            </button>
+                                            <button
+                                                @click="uploadMethod = 'url'"
+                                                type="button"
+                                                :class="[
+                                                    'px-4 py-2 rounded-lg text-sm font-medium transition-colors',
+                                                    uploadMethod === 'url'
+                                                        ? 'bg-blue-600 text-white'
+                                                        : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
+                                                ]"
+                                            >
+                                                Use URL
+                                            </button>
+                                        </div>
+
+                                        <!-- File Upload -->
+                                        <div v-if="uploadMethod === 'file'">
+                                            <input
+                                                @change="handleImageUpload"
+                                                type="file"
+                                                accept="image/*"
+                                                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-blue-900/30 dark:file:text-blue-400"
+                                            />
+                                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                                Supported: JPG, PNG, GIF, WebP (Max 5MB)
+                                            </p>
+                                        </div>
+
+                                        <!-- URL Input -->
+                                        <div v-else>
+                                            <input
+                                                v-model="form.featured_image_url"
+                                                type="text"
+                                                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                                                placeholder="https://example.com/image.jpg"
+                                            />
+                                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                                Enter image URL from external source
+                                            </p>
+                                        </div>
                                     </div>
 
                                     <!-- Excerpt -->
@@ -504,15 +561,12 @@
                                     <!-- Content -->
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                            Content (Markdown/HTML) *
+                                            Content *
                                         </label>
-                                        <textarea
-                                            v-model="form.content"
-                                            required
-                                            rows="10"
-                                            class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white font-mono text-sm"
-                                            placeholder="Write your blog content here..."
-                                        ></textarea>
+                                        <TiptapEditor v-model="form.content" />
+                                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                            Use the toolbar above to format your blog content with headings, lists, links, and more.
+                                        </p>
                                     </div>
 
                                     <!-- Tags -->
@@ -706,6 +760,7 @@
 import { ref, computed } from 'vue';
 import { Head, router } from '@inertiajs/vue3';
 import AdminLayout from '../../Layouts/AdminLayout.vue';
+import TiptapEditor from '../../Components/TiptapEditor.vue';
 import {
     Dialog,
     DialogPanel,
@@ -758,6 +813,9 @@ const showDeleteModal = ref(false);
 const isEditing = ref(false);
 const selectedPost = ref(null);
 const tagsInput = ref('');
+const uploadMethod = ref('file');
+const imagePreview = ref(null);
+const featuredImageFile = ref(null);
 
 const form = ref({
     title: '',
@@ -765,6 +823,7 @@ const form = ref({
     excerpt: '',
     content: '',
     featured_image: '',
+    featured_image_url: '',
     blog_category_id: '',
     author: 'Ajay Upadhyay',
     tags: [],
@@ -849,6 +908,21 @@ const confirmDeleteCategory = () => {
     });
 };
 
+// Image Upload Handler
+const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        featuredImageFile.value = file;
+
+        // Create preview
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            imagePreview.value = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+};
+
 // Post Functions
 const resetForm = () => {
     form.value = {
@@ -857,6 +931,7 @@ const resetForm = () => {
         excerpt: '',
         content: '',
         featured_image: '',
+        featured_image_url: '',
         blog_category_id: '',
         author: 'Ajay Upadhyay',
         tags: [],
@@ -869,6 +944,9 @@ const resetForm = () => {
         published_at: '',
     };
     tagsInput.value = '';
+    imagePreview.value = null;
+    featuredImageFile.value = null;
+    uploadMethod.value = 'file';
 };
 
 const openCreateModal = () => {
@@ -885,6 +963,7 @@ const openEditModal = (post) => {
         excerpt: post.excerpt,
         content: post.content,
         featured_image: post.featured_image || '',
+        featured_image_url: '',
         blog_category_id: post.blog_category_id,
         author: post.author,
         tags: post.tags || [],
@@ -897,6 +976,19 @@ const openEditModal = (post) => {
         published_at: post.published_at ? new Date(post.published_at).toISOString().slice(0, 16) : '',
     };
     tagsInput.value = Array.isArray(post.tags) ? post.tags.join(', ') : '';
+
+    // Reset image upload state
+    imagePreview.value = null;
+    featuredImageFile.value = null;
+
+    // Set upload method based on existing image
+    if (post.featured_image && post.featured_image.startsWith('http')) {
+        uploadMethod.value = 'url';
+        form.value.featured_image_url = post.featured_image;
+    } else {
+        uploadMethod.value = 'file';
+    }
+
     isEditing.value = true;
     showModal.value = true;
 };
@@ -924,23 +1016,40 @@ const submitForm = () => {
         .map(tag => tag.trim())
         .filter(tag => tag.length > 0);
 
-    const data = {
-        ...form.value,
-        tags: tags,
+    // Create FormData for file upload
+    const formData = new FormData();
+
+    // Append all form fields
+    Object.keys(form.value).forEach(key => {
+        if (key !== 'tags' && key !== 'featured_image' && form.value[key] !== null && form.value[key] !== '') {
+            formData.append(key, form.value[key]);
+        }
+    });
+
+    // Append tags
+    tags.forEach((tag, index) => {
+        formData.append(`tags[${index}]`, tag);
+    });
+
+    // Append featured image file if exists
+    if (featuredImageFile.value) {
+        formData.append('featured_image', featuredImageFile.value);
+    } else if (uploadMethod.value === 'url' && form.value.featured_image_url) {
+        formData.append('featured_image_url', form.value.featured_image_url);
+    }
+
+    const options = {
+        onSuccess: () => {
+            closeModal();
+        },
+        forceFormData: true,
     };
 
     if (isEditing.value) {
-        router.put(route('admin.blog.update', selectedPost.value.id), data, {
-            onSuccess: () => {
-                closeModal();
-            }
-        });
+        formData.append('_method', 'PUT');
+        router.post(route('admin.blog.update', selectedPost.value.id), formData, options);
     } else {
-        router.post(route('admin.blog.store'), data, {
-            onSuccess: () => {
-                closeModal();
-            }
-        });
+        router.post(route('admin.blog.store'), formData, options);
     }
 };
 

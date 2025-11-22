@@ -50,10 +50,9 @@
                             class="px-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                         >
                             <option value="">All Categories</option>
-                            <option value="cloud">Cloud Computing</option>
-                            <option value="devops">DevOps</option>
-                            <option value="development">Development</option>
-                            <option value="tutorials">Tutorials</option>
+                            <option v-for="category in categories" :key="category.id" :value="category.slug">
+                                {{ category.name }}
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -70,7 +69,7 @@
                             <!-- Image -->
                             <div class="relative h-64 md:h-full overflow-hidden">
                                 <img
-                                    :src="featuredPost.image"
+                                    :src="featuredPost.featured_image"
                                     :alt="featuredPost.title"
                                     class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                                 />
@@ -85,11 +84,11 @@
                             <div class="p-8 flex flex-col justify-center">
                                 <div class="flex items-center gap-3 mb-4">
                                     <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-sm font-medium rounded-full">
-                                        {{ featuredPost.category }}
+                                        {{ featuredPost.category.name }}
                                     </span>
                                     <span class="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-1">
                                         <ClockIcon class="w-4 h-4" />
-                                        {{ featuredPost.readTime }} min read
+                                        {{ featuredPost.read_time }} min read
                                     </span>
                                 </div>
 
@@ -108,12 +107,12 @@
                                         </div>
                                         <div>
                                             <p class="text-sm font-medium text-gray-900 dark:text-white">{{ featuredPost.author }}</p>
-                                            <p class="text-xs text-gray-500 dark:text-gray-400">{{ featuredPost.date }}</p>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400">{{ formatDate(featuredPost.published_at) }}</p>
                                         </div>
                                     </div>
 
                                     <a
-                                        :href="featuredPost.slug"
+                                        :href="`/blog/${featuredPost.slug}`"
                                         class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-medium hover:shadow-lg transform hover:scale-105 transition-all"
                                     >
                                         Read More
@@ -136,18 +135,18 @@
                         <!-- Image -->
                         <div class="relative h-48 overflow-hidden">
                             <img
-                                :src="post.image"
+                                :src="post.featured_image"
                                 :alt="post.title"
                                 class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                             />
                             <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                             <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between">
                                 <span class="px-3 py-1 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm text-gray-900 dark:text-white text-xs font-medium rounded-full">
-                                    {{ post.category }}
+                                    {{ post.category.name }}
                                 </span>
                                 <span class="text-white text-xs flex items-center gap-1">
                                     <ClockIcon class="w-3 h-3" />
-                                    {{ post.readTime }} min
+                                    {{ post.read_time }} min
                                 </span>
                             </div>
                         </div>
@@ -163,9 +162,9 @@
                             </p>
 
                             <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
-                                <span class="text-xs text-gray-500 dark:text-gray-400">{{ post.date }}</span>
+                                <span class="text-xs text-gray-500 dark:text-gray-400">{{ formatDate(post.published_at) }}</span>
                                 <a
-                                    :href="post.slug"
+                                    :href="`/blog/${post.slug}`"
                                     class="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 font-medium text-sm hover:gap-3 transition-all"
                                 >
                                     Read More
@@ -219,83 +218,35 @@ const props = defineProps({
     posts: {
         type: Array,
         default: () => []
+    },
+    featuredPost: {
+        type: Object,
+        default: null
+    },
+    categories: {
+        type: Array,
+        default: () => []
     }
 });
 
 const searchQuery = ref('');
 const selectedCategory = ref('');
 
-// Demo data (will be replaced with real data from backend)
-const featuredPost = {
-    id: 1,
-    title: 'Building Scalable Cloud Infrastructure with AWS and Terraform',
-    excerpt: 'Learn how to design and implement a highly scalable, fault-tolerant infrastructure on AWS using Infrastructure as Code principles with Terraform.',
-    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop',
-    category: 'Cloud Computing',
-    author: 'Ajay Upadhyay',
-    date: 'Nov 20, 2025',
-    readTime: 8,
-    slug: '/blog/scalable-cloud-infrastructure-aws-terraform'
+// Format date helper
+const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+    });
 };
 
-const blogPosts = [
-    {
-        id: 2,
-        title: 'Mastering Kubernetes Deployments: Best Practices',
-        excerpt: 'Discover essential best practices for deploying and managing containerized applications in production Kubernetes clusters.',
-        image: 'https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=800&h=600&fit=crop',
-        category: 'DevOps',
-        date: 'Nov 18, 2025',
-        readTime: 6,
-        slug: '/blog/kubernetes-deployment-best-practices'
-    },
-    {
-        id: 3,
-        title: 'CI/CD Pipeline Automation with GitHub Actions',
-        excerpt: 'Step-by-step guide to implementing automated testing and deployment workflows using GitHub Actions.',
-        image: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=800&h=600&fit=crop',
-        category: 'DevOps',
-        date: 'Nov 15, 2025',
-        readTime: 10,
-        slug: '/blog/cicd-github-actions'
-    },
-    {
-        id: 4,
-        title: 'Azure DevOps vs GitHub Actions: A Complete Comparison',
-        excerpt: 'An in-depth comparison of two leading CI/CD platforms to help you choose the right tool for your projects.',
-        image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=600&fit=crop',
-        category: 'Cloud Computing',
-        date: 'Nov 12, 2025',
-        readTime: 7,
-        slug: '/blog/azure-devops-vs-github-actions'
-    },
-    {
-        id: 5,
-        title: 'Monitoring and Observability with Prometheus & Grafana',
-        excerpt: 'Learn how to implement comprehensive monitoring solutions for your infrastructure and applications.',
-        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
-        category: 'Tutorials',
-        date: 'Nov 10, 2025',
-        readTime: 12,
-        slug: '/blog/monitoring-prometheus-grafana'
-    },
-    {
-        id: 6,
-        title: 'Docker Multi-Stage Builds: Optimizing Container Images',
-        excerpt: 'Reduce your Docker image sizes and improve build times with multi-stage builds and best practices.',
-        image: 'https://images.unsplash.com/photo-1605745341112-85968b19335b?w=800&h=600&fit=crop',
-        category: 'Development',
-        date: 'Nov 8, 2025',
-        readTime: 5,
-        slug: '/blog/docker-multi-stage-builds'
-    }
-];
-
 const filteredPosts = computed(() => {
-    return blogPosts.filter(post => {
+    return props.posts.filter(post => {
         const matchesSearch = post.title.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
                             post.excerpt.toLowerCase().includes(searchQuery.value.toLowerCase());
-        const matchesCategory = !selectedCategory.value || post.category.toLowerCase().includes(selectedCategory.value.toLowerCase());
+        const matchesCategory = !selectedCategory.value || post.category.slug === selectedCategory.value;
         return matchesSearch && matchesCategory;
     });
 });
