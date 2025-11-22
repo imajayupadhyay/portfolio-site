@@ -104,4 +104,42 @@ class CertificationsController extends Controller
             'path' => '/storage/' . $path,
         ]);
     }
+
+    public function reorder(Request $request, Certification $certification)
+    {
+        $request->validate([
+            'direction' => 'required|in:up,down',
+        ]);
+
+        $direction = $request->direction;
+        $currentOrder = $certification->order;
+
+        if ($direction === 'up') {
+            // Find the certification with the previous order
+            $previous = Certification::where('order', '<', $currentOrder)
+                ->orderBy('order', 'desc')
+                ->first();
+
+            if ($previous) {
+                // Swap orders
+                $previousOrder = $previous->order;
+                $previous->update(['order' => $currentOrder]);
+                $certification->update(['order' => $previousOrder]);
+            }
+        } else {
+            // Find the certification with the next order
+            $next = Certification::where('order', '>', $currentOrder)
+                ->orderBy('order', 'asc')
+                ->first();
+
+            if ($next) {
+                // Swap orders
+                $nextOrder = $next->order;
+                $next->update(['order' => $currentOrder]);
+                $certification->update(['order' => $nextOrder]);
+            }
+        }
+
+        return back()->with('success', 'Order updated successfully.');
+    }
 }

@@ -57,6 +57,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('/certifications/{certification}', [CertificationsController::class, 'update'])->name('certifications.update');
         Route::delete('/certifications/{certification}', [CertificationsController::class, 'destroy'])->name('certifications.destroy');
         Route::post('/certifications/upload-badge', [CertificationsController::class, 'uploadBadge'])->name('certifications.upload');
+        Route::post('/certifications/{certification}/reorder', [CertificationsController::class, 'reorder'])->name('certifications.reorder');
         Route::put('/certifications-settings', [CertificationsController::class, 'updateSettings'])->name('certifications.settings');
 
         // Experience

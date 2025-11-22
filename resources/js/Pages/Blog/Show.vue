@@ -9,7 +9,7 @@
         <section class="relative pt-28 pb-12 overflow-hidden">
             <div class="absolute inset-0 bg-gradient-to-b from-white via-gray-50 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"></div>
 
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <!-- Breadcrumb -->
                 <nav class="mb-8 animate-fade-in-up">
                     <ol class="flex items-center gap-2 text-sm">
@@ -72,10 +72,10 @@
 
         <!-- Article Content -->
         <section class="relative py-12">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid lg:grid-cols-12 gap-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-12 gap-8 xl:gap-12">
                     <!-- Main Content -->
-                    <article class="lg:col-span-8">
+                    <article class="lg:col-span-8 xl:col-span-9">
                         <div class="max-w-none">
                             <!-- Article Introduction -->
                             <p class="text-xl text-gray-600 dark:text-gray-400 leading-relaxed mb-8">
@@ -123,8 +123,8 @@
                     </article>
 
                     <!-- Sidebar -->
-                    <aside class="lg:col-span-4">
-                        <div class="sticky top-8 space-y-8">
+                    <aside class="lg:col-span-4 xl:col-span-3">
+                        <div class="sticky top-24 space-y-6">
                             <!-- Table of Contents -->
                             <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
                                 <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">

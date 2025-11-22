@@ -76,7 +76,7 @@
 
                         <!-- Skills in Category -->
                         <div class="p-4">
-                            <div v-if="category.skills.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                            <div v-if="category.skills.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-3" :class="getGridClass(category.grid_cols)">
                                 <div v-for="skill in category.skills" :key="skill.id" class="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
                                     <div class="flex items-center gap-3 flex-1">
                                         <div class="w-8 h-8 rounded-lg flex items-center justify-center" :style="{ backgroundColor: skill.color + '20' }">
@@ -373,5 +373,16 @@ const deleteSkill = () => {
             deletingSkill.value = null;
         },
     });
+};
+
+const getGridClass = (cols) => {
+    const gridClasses = {
+        2: 'lg:grid-cols-2',
+        3: 'lg:grid-cols-3',
+        4: 'lg:grid-cols-4',
+        5: 'lg:grid-cols-5',
+        6: 'lg:grid-cols-6',
+    };
+    return gridClasses[cols] || 'lg:grid-cols-5';
 };
 </script>

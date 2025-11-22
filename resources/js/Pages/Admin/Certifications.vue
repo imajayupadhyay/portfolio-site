@@ -67,6 +67,22 @@
                                 {{ cert.is_active ? 'Active' : 'Inactive' }}
                             </span>
                             <div class="flex gap-2">
+                                <button
+                                    @click="moveUp(cert)"
+                                    :disabled="isFirst(cert)"
+                                    :class="['p-2 rounded-lg transition-colors', isFirst(cert) ? 'text-gray-300 dark:text-gray-600 cursor-not-allowed' : 'text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700']"
+                                    title="Move up"
+                                >
+                                    <ChevronUpIcon class="w-4 h-4" />
+                                </button>
+                                <button
+                                    @click="moveDown(cert)"
+                                    :disabled="isLast(cert)"
+                                    :class="['p-2 rounded-lg transition-colors', isLast(cert) ? 'text-gray-300 dark:text-gray-600 cursor-not-allowed' : 'text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700']"
+                                    title="Move down"
+                                >
+                                    <ChevronDownIcon class="w-4 h-4" />
+                                </button>
                                 <button @click="openModal(cert)" class="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/50 rounded-lg transition-colors">
                                     <PencilIcon class="w-4 h-4" />
                                 </button>
@@ -183,7 +199,7 @@
 import { ref, reactive } from 'vue';
 import { Head, router } from '@inertiajs/vue3';
 import AdminLayout from '../../Layouts/AdminLayout.vue';
-import { PlusIcon, PencilIcon, TrashIcon, AcademicCapIcon } from '@heroicons/vue/24/outline';
+import { PlusIcon, PencilIcon, TrashIcon, AcademicCapIcon, ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/24/outline';
 
 const props = defineProps({
     user: Object,
@@ -291,5 +307,29 @@ const deleteCert = () => {
             deleting.value = null;
         },
     });
+};
+
+const moveUp = (cert) => {
+    router.post(`/admin/certifications/${cert.id}/reorder`, {
+        direction: 'up',
+    }, {
+        preserveScroll: true,
+    });
+};
+
+const moveDown = (cert) => {
+    router.post(`/admin/certifications/${cert.id}/reorder`, {
+        direction: 'down',
+    }, {
+        preserveScroll: true,
+    });
+};
+
+const isFirst = (cert) => {
+    return props.certifications.indexOf(cert) === 0;
+};
+
+const isLast = (cert) => {
+    return props.certifications.indexOf(cert) === props.certifications.length - 1;
 };
 </script>
