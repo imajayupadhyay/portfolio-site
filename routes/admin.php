@@ -68,6 +68,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Footer
         Route::get('/footer', [FooterController::class, 'index'])->name('footer.index');
         Route::put('/footer', [FooterController::class, 'update'])->name('footer.update');
+        Route::post('/footer/social', [FooterController::class, 'storeSocialLink'])->name('footer.social.store');
+        Route::put('/footer/social/{socialLink}', [FooterController::class, 'updateSocialLink'])->name('footer.social.update');
+        Route::delete('/footer/social/{socialLink}', [FooterController::class, 'destroySocialLink'])->name('footer.social.destroy');
 
         // Skills
         Route::get('/skills', [SkillsController::class, 'index'])->name('skills.index');

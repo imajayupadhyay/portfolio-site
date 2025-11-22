@@ -11,7 +11,7 @@
             :href="whatsappUrl"
             target="_blank"
             rel="noopener noreferrer"
-            class="relative flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-full shadow-2xl hover:shadow-green-500/50 transform hover:scale-110 transition-all duration-300 group-hover:rounded-2xl"
+            class="relative flex items-center justify-center w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-full shadow-2xl hover:shadow-green-500/50 transform hover:scale-110 transition-all duration-300 group-hover:rounded-2xl"
             aria-label="Chat on WhatsApp"
         >
             <!-- Gradient Glow -->
@@ -19,7 +19,7 @@
 
             <!-- WhatsApp Icon -->
             <svg
-                class="relative w-9 h-9 text-white transform group-hover:rotate-12 transition-transform duration-300"
+                class="relative w-6 h-6 text-white transform group-hover:rotate-12 transition-transform duration-300"
                 fill="currentColor"
                 viewBox="0 0 24 24"
             >
@@ -27,7 +27,7 @@
             </svg>
 
             <!-- Notification Badge (optional) -->
-            <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-white animate-bounce"></span>
+            <span class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white animate-bounce"></span>
         </a>
 
         <!-- Hover Tooltip -->

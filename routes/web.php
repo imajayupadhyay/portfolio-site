@@ -19,10 +19,16 @@ Route::get('/', function () {
     $heroSettings = Setting::where('key', 'like', 'hero_%')->pluck('value', 'key');
     $expSettings = Setting::where('key', 'like', 'experience_%')->pluck('value', 'key');
     $skillsSettings = Setting::where('key', 'like', 'skills_%')->pluck('value', 'key');
+    $footerSettings = Setting::where('key', 'like', 'footer_%')->pluck('value', 'key');
 
     $skillCategories = SkillCategory::with(['skills' => function ($query) {
         $query->active();
     }])->active()->get();
+
+    $footerSocialLinks = \App\Models\SocialLink::where('context', 'footer')
+        ->where('is_active', true)
+        ->orderBy('order')
+        ->get();
 
     return Inertia::render('Home', [
         'laravelVersion' => app()->version(),
@@ -33,6 +39,8 @@ Route::get('/', function () {
         'experienceSettings' => $expSettings,
         'skillCategories' => $skillCategories,
         'skillsSettings' => $skillsSettings,
+        'footerSettings' => $footerSettings,
+        'footerSocialLinks' => $footerSocialLinks,
     ]);
 });
 
