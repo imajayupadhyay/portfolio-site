@@ -70,6 +70,22 @@
                             {{ exp.is_active ? 'Active' : 'Inactive' }}
                         </span>
                         <div class="flex gap-2">
+                            <button
+                                @click="moveUp(exp)"
+                                :disabled="isFirst(exp)"
+                                :class="['p-2 rounded-lg transition-colors', isFirst(exp) ? 'text-gray-300 dark:text-gray-600 cursor-not-allowed' : 'text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700']"
+                                title="Move up"
+                            >
+                                <ChevronUpIcon class="w-4 h-4" />
+                            </button>
+                            <button
+                                @click="moveDown(exp)"
+                                :disabled="isLast(exp)"
+                                :class="['p-2 rounded-lg transition-colors', isLast(exp) ? 'text-gray-300 dark:text-gray-600 cursor-not-allowed' : 'text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700']"
+                                title="Move down"
+                            >
+                                <ChevronDownIcon class="w-4 h-4" />
+                            </button>
                             <button @click="openModal(exp)" class="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/50 rounded-lg transition-colors">
                                 <PencilIcon class="w-4 h-4" />
                             </button>
@@ -186,7 +202,7 @@
 import { ref, reactive } from 'vue';
 import { Head, router } from '@inertiajs/vue3';
 import AdminLayout from '../../Layouts/AdminLayout.vue';
-import { PlusIcon, PencilIcon, TrashIcon, BriefcaseIcon } from '@heroicons/vue/24/outline';
+import { PlusIcon, PencilIcon, TrashIcon, BriefcaseIcon, ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/24/outline';
 
 const props = defineProps({
     user: Object,
@@ -280,5 +296,29 @@ const deleteExp = () => {
             deleting.value = null;
         },
     });
+};
+
+const moveUp = (exp) => {
+    router.post(`/admin/experience/${exp.id}/reorder`, {
+        direction: 'up',
+    }, {
+        preserveScroll: true,
+    });
+};
+
+const moveDown = (exp) => {
+    router.post(`/admin/experience/${exp.id}/reorder`, {
+        direction: 'down',
+    }, {
+        preserveScroll: true,
+    });
+};
+
+const isFirst = (exp) => {
+    return props.experiences.indexOf(exp) === 0;
+};
+
+const isLast = (exp) => {
+    return props.experiences.indexOf(exp) === props.experiences.length - 1;
 };
 </script>

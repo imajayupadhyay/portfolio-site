@@ -63,6 +63,44 @@ class ProjectsController extends Controller
         return back()->with('success', 'Project deleted successfully.');
     }
 
+    public function reorder(Request $request, Project $project)
+    {
+        $request->validate([
+            'direction' => 'required|in:up,down',
+        ]);
+
+        $direction = $request->direction;
+        $currentOrder = $project->order;
+
+        if ($direction === 'up') {
+            // Find the project with the previous order
+            $previous = Project::where('order', '<', $currentOrder)
+                ->orderBy('order', 'desc')
+                ->first();
+
+            if ($previous) {
+                // Swap orders
+                $previousOrder = $previous->order;
+                $previous->update(['order' => $currentOrder]);
+                $project->update(['order' => $previousOrder]);
+            }
+        } else {
+            // Find the project with the next order
+            $next = Project::where('order', '>', $currentOrder)
+                ->orderBy('order', 'asc')
+                ->first();
+
+            if ($next) {
+                // Swap orders
+                $nextOrder = $next->order;
+                $next->update(['order' => $currentOrder]);
+                $project->update(['order' => $nextOrder]);
+            }
+        }
+
+        return back()->with('success', 'Order updated successfully.');
+    }
+
     public function updateSettings(Request $request)
     {
         $validated = $request->validate([

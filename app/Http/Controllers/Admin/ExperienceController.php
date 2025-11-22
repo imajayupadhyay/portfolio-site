@@ -76,6 +76,44 @@ class ExperienceController extends Controller
         return back()->with('success', 'Experience deleted successfully.');
     }
 
+    public function reorder(Request $request, Experience $experience)
+    {
+        $request->validate([
+            'direction' => 'required|in:up,down',
+        ]);
+
+        $direction = $request->direction;
+        $currentOrder = $experience->order;
+
+        if ($direction === 'up') {
+            // Find the experience with the previous order
+            $previous = Experience::where('order', '<', $currentOrder)
+                ->orderBy('order', 'desc')
+                ->first();
+
+            if ($previous) {
+                // Swap orders
+                $previousOrder = $previous->order;
+                $previous->update(['order' => $currentOrder]);
+                $experience->update(['order' => $previousOrder]);
+            }
+        } else {
+            // Find the experience with the next order
+            $next = Experience::where('order', '>', $currentOrder)
+                ->orderBy('order', 'asc')
+                ->first();
+
+            if ($next) {
+                // Swap orders
+                $nextOrder = $next->order;
+                $next->update(['order' => $currentOrder]);
+                $experience->update(['order' => $nextOrder]);
+            }
+        }
+
+        return back()->with('success', 'Order updated successfully.');
+    }
+
     public function updateSettings(Request $request)
     {
         $validated = $request->validate([

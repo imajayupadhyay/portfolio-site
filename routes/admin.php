@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ExperienceController;
 use App\Http\Controllers\Admin\FooterController;
 use App\Http\Controllers\Admin\SkillsController;
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\AdminsController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -23,6 +24,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+        // Admin Management
+        Route::get('/admins', [AdminsController::class, 'index'])->name('admins.index');
+        Route::post('/admins', [AdminsController::class, 'store'])->name('admins.store');
+        Route::put('/admins/{admin}', [AdminsController::class, 'update'])->name('admins.update');
+        Route::put('/admins/{admin}/password', [AdminsController::class, 'updatePassword'])->name('admins.password');
+        Route::delete('/admins/{admin}', [AdminsController::class, 'destroy'])->name('admins.destroy');
 
         // Hero Section
         Route::get('/hero', [HeroController::class, 'index'])->name('hero.index');
@@ -49,6 +57,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/projects', [ProjectsController::class, 'store'])->name('projects.store');
         Route::put('/projects/{project}', [ProjectsController::class, 'update'])->name('projects.update');
         Route::delete('/projects/{project}', [ProjectsController::class, 'destroy'])->name('projects.destroy');
+        Route::post('/projects/{project}/reorder', [ProjectsController::class, 'reorder'])->name('projects.reorder');
         Route::put('/projects-settings', [ProjectsController::class, 'updateSettings'])->name('projects.settings');
 
         // Certifications
@@ -65,6 +74,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/experience', [ExperienceController::class, 'store'])->name('experience.store');
         Route::put('/experience/{experience}', [ExperienceController::class, 'update'])->name('experience.update');
         Route::delete('/experience/{experience}', [ExperienceController::class, 'destroy'])->name('experience.destroy');
+        Route::post('/experience/{experience}/reorder', [ExperienceController::class, 'reorder'])->name('experience.reorder');
         Route::put('/experience-settings', [ExperienceController::class, 'updateSettings'])->name('experience.settings');
 
         // Header

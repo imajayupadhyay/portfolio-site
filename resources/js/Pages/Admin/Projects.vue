@@ -72,6 +72,22 @@
                                 </div>
                             </div>
                             <div class="flex items-center gap-2 ml-4">
+                                <button
+                                    @click="moveUp(project)"
+                                    :disabled="isFirst(project)"
+                                    :class="['p-2 rounded-lg transition-colors', isFirst(project) ? 'text-gray-300 dark:text-gray-600 cursor-not-allowed' : 'text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700']"
+                                    title="Move up"
+                                >
+                                    <ChevronUpIcon class="w-4 h-4" />
+                                </button>
+                                <button
+                                    @click="moveDown(project)"
+                                    :disabled="isLast(project)"
+                                    :class="['p-2 rounded-lg transition-colors', isLast(project) ? 'text-gray-300 dark:text-gray-600 cursor-not-allowed' : 'text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700']"
+                                    title="Move down"
+                                >
+                                    <ChevronDownIcon class="w-4 h-4" />
+                                </button>
                                 <button @click="openModal(project)" class="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/50 rounded-lg transition-colors">
                                     <PencilIcon class="w-5 h-5" />
                                 </button>
@@ -151,10 +167,10 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed } from 'vue';
+import { ref, reactive } from 'vue';
 import { Head, router } from '@inertiajs/vue3';
 import AdminLayout from '../../Layouts/AdminLayout.vue';
-import { PlusIcon, PencilIcon, TrashIcon, ChevronDownIcon } from '@heroicons/vue/24/outline';
+import { PlusIcon, PencilIcon, TrashIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/vue/24/outline';
 
 const props = defineProps({
     user: Object,
@@ -242,5 +258,29 @@ const deleteProject = () => {
             deletingProject.value = null;
         },
     });
+};
+
+const moveUp = (project) => {
+    router.post(`/admin/projects/${project.id}/reorder`, {
+        direction: 'up',
+    }, {
+        preserveScroll: true,
+    });
+};
+
+const moveDown = (project) => {
+    router.post(`/admin/projects/${project.id}/reorder`, {
+        direction: 'down',
+    }, {
+        preserveScroll: true,
+    });
+};
+
+const isFirst = (project) => {
+    return props.projects.indexOf(project) === 0;
+};
+
+const isLast = (project) => {
+    return props.projects.indexOf(project) === props.projects.length - 1;
 };
 </script>
