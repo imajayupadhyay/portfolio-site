@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\FooterController;
 use App\Http\Controllers\Admin\SkillsController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\AdminsController;
+use App\Http\Controllers\Admin\NotificationsController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -24,6 +25,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+        // Notifications
+        Route::get('/notifications', [NotificationsController::class, 'index'])->name('notifications.index');
+        Route::post('/notifications/{id}/read', [NotificationsController::class, 'markAsRead'])->name('notifications.read');
+        Route::post('/notifications/read-all', [NotificationsController::class, 'markAllAsRead'])->name('notifications.readAll');
 
         // Admin Management
         Route::get('/admins', [AdminsController::class, 'index'])->name('admins.index');
