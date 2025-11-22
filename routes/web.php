@@ -120,3 +120,8 @@ Route::get('/blog/{slug}', function ($slug) {
         'footerSocialLinks' => $footerSocialLinks,
     ]);
 })->name('blog.show');
+
+// Catch-all route for 404 - Must be last!
+Route::fallback(function () {
+    return Inertia::render('Errors/404');
+});

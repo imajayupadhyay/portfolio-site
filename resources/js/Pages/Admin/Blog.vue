@@ -886,13 +886,13 @@ const closeDeleteCategoryModal = () => {
 
 const submitCategoryForm = () => {
     if (isEditingCategory.value) {
-        router.put(route('admin.blog.categories.update', selectedCategory.value.id), categoryForm.value, {
+        router.put(`/admin/blog/categories/${selectedCategory.value.id}`, categoryForm.value, {
             onSuccess: () => {
                 closeCategoryModal();
             }
         });
     } else {
-        router.post(route('admin.blog.categories.store'), categoryForm.value, {
+        router.post('/admin/blog/categories', categoryForm.value, {
             onSuccess: () => {
                 closeCategoryModal();
             }
@@ -901,7 +901,7 @@ const submitCategoryForm = () => {
 };
 
 const confirmDeleteCategory = () => {
-    router.delete(route('admin.blog.categories.destroy', selectedCategory.value.id), {
+    router.delete(`/admin/blog/categories/${selectedCategory.value.id}`, {
         onSuccess: () => {
             closeDeleteCategoryModal();
         }
@@ -1021,8 +1021,17 @@ const submitForm = () => {
 
     // Append all form fields
     Object.keys(form.value).forEach(key => {
-        if (key !== 'tags' && key !== 'featured_image' && form.value[key] !== null && form.value[key] !== '') {
-            formData.append(key, form.value[key]);
+        if (key !== 'tags' && key !== 'featured_image' && key !== 'featured_image_url') {
+            const value = form.value[key];
+            // Only skip if value is null or undefined, allow empty strings, false, and 0
+            if (value !== null && value !== undefined) {
+                // Convert booleans to 0/1 for Laravel
+                if (typeof value === 'boolean') {
+                    formData.append(key, value ? 1 : 0);
+                } else {
+                    formData.append(key, value);
+                }
+            }
         }
     });
 
@@ -1042,19 +1051,22 @@ const submitForm = () => {
         onSuccess: () => {
             closeModal();
         },
+        onError: (errors) => {
+            console.error('Form submission errors:', errors);
+        },
         forceFormData: true,
     };
 
     if (isEditing.value) {
         formData.append('_method', 'PUT');
-        router.post(route('admin.blog.update', selectedPost.value.id), formData, options);
+        router.post(`/admin/blog/${selectedPost.value.slug}`, formData, options);
     } else {
-        router.post(route('admin.blog.store'), formData, options);
+        router.post('/admin/blog', formData, options);
     }
 };
 
 const confirmDelete = () => {
-    router.delete(route('admin.blog.destroy', selectedPost.value.id), {
+    router.delete(`/admin/blog/${selectedPost.value.slug}`, {
         onSuccess: () => {
             closeDeleteModal();
         }
