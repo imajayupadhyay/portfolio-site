@@ -27,6 +27,11 @@ Route::get('/', function () {
         $query->active();
     }])->active()->get();
 
+    $headerSocialLinks = \App\Models\SocialLink::where('context', 'header')
+        ->where('is_active', true)
+        ->orderBy('order')
+        ->get();
+
     $footerSocialLinks = \App\Models\SocialLink::where('context', 'footer')
         ->where('is_active', true)
         ->orderBy('order')
@@ -42,6 +47,7 @@ Route::get('/', function () {
         'skillCategories' => $skillCategories,
         'skillsSettings' => $skillsSettings,
         'footerSettings' => $footerSettings,
+        'headerSocialLinks' => $headerSocialLinks,
         'footerSocialLinks' => $footerSocialLinks,
     ]);
 });

@@ -4,6 +4,7 @@
         <Header
             :site-name="siteName"
             :logo-initial="logoInitial"
+            :header-social-links="headerSocialLinks"
         />
 
         <!-- Main Content -->
@@ -34,6 +35,8 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
+import { usePage } from '@inertiajs/vue3';
 import Header from '../Components/Header.vue';
 import Footer from '../Components/Footer.vue';
 import FloatingWhatsApp from '../Components/FloatingWhatsApp.vue';
@@ -49,6 +52,10 @@ const props = defineProps({
         default: 'P'
     }
 });
+
+// Get header social links from global Inertia props
+const page = usePage();
+const headerSocialLinks = computed(() => page.props.headerSocialLinks || []);
 </script>
 
 <style scoped>

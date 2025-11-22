@@ -66,6 +66,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('/experience/{experience}', [ExperienceController::class, 'destroy'])->name('experience.destroy');
         Route::put('/experience-settings', [ExperienceController::class, 'updateSettings'])->name('experience.settings');
 
+        // Header
+        Route::get('/header', [App\Http\Controllers\Admin\HeaderController::class, 'index'])->name('header.index');
+        Route::post('/header/social', [App\Http\Controllers\Admin\HeaderController::class, 'storeSocialLink'])->name('header.social.store');
+        Route::put('/header/social/{socialLink}', [App\Http\Controllers\Admin\HeaderController::class, 'updateSocialLink'])->name('header.social.update');
+        Route::delete('/header/social/{socialLink}', [App\Http\Controllers\Admin\HeaderController::class, 'destroySocialLink'])->name('header.social.destroy');
+
         // Footer
         Route::get('/footer', [FooterController::class, 'index'])->name('footer.index');
         Route::put('/footer', [FooterController::class, 'update'])->name('footer.update');
